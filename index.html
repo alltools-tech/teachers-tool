@@ -7,13 +7,13 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-NC130TNCZL');
 </script>
 <meta charset="UTF-8">
 <title>Exam Result Tool</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{font-family:Arial,sans-serif;margin:20px;}
+body{font-family:Arial,sans-serif;margin:20px;background:#f8f9fa;}
 h2{margin-top:20px;}
 .table-title {
     background:#222;
@@ -32,8 +32,9 @@ h2{margin-top:20px;}
     box-shadow:0 2px 5px rgba(0,0,0,0.08);
     background: #fff;
     padding-bottom:8px;
+    overflow-x:auto;
 }
-table{border-collapse:collapse;margin-top:10px;width:auto;}
+table{border-collapse:collapse;margin-top:10px;width:100%;}
 th,td{border:1px solid #333;padding:4px;text-align:center;}
 th {
     background:#222;
@@ -76,7 +77,7 @@ button{padding:4px 6px;margin:2px;cursor:pointer;border-radius:3px;}
     border-radius:3px;
     padding:0 6px;
 }
-#hideColumnSelect, #showColumnSelect, #printSelect {
+#hideColumnSelect, #showColumnSelect {
     margin-left:5px;
     padding:2px 8px;
     background:#e0e0e0;
@@ -96,92 +97,9 @@ button{padding:4px 6px;margin:2px;cursor:pointer;border-radius:3px;}
     margin-right:8px;
     font-weight:bold;
 }
-
-/* How to Use Modal */
-#howToUseBtn {
-    background: #1976d2;
-    color: #fff;
-    font-weight: bold;
-    border: none;
-    border-radius: 4px;
-    margin-left: 16px;
-    padding: 6px 14px;
-    font-size: 15px;
-    box-shadow: 0 2px 8px rgba(25,118,210,0.10);
-}
-#howToUseBtn:hover {
-    background: #1255a6;
-}
-#howToUseModal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0; top: 0;
-    width: 100vw; height: 100vh;
-    overflow: auto;
-    background: rgba(40,60,80,0.26);
-}
-#howToUseContent {
-    background: #e3f2fd;
-    color: #0d2346;
-    margin: 70px auto;
-    padding: 0;
-    border-radius: 8px;
-    max-width: 500px;
-    box-shadow: 0 4px 24px rgba(25,118,210,.13);
-    position: relative;
-    font-size: 15px;
-    animation: fadeIn .24s;
-}
-@keyframes fadeIn {
-    from {transform: scale(0.94);opacity:0;}
-    to   {transform: scale(1);opacity:1;}
-}
-#howToUseContentHeader {
-    background: #1976d2;
-    color: #fff;
-    font-weight: bold;
-    padding: 12px 18px;
-    border-radius: 8px 8px 0 0;
-    font-size: 18px;
-    letter-spacing: 1px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-#closeHowToUse {
-    color: #fff;
-    background: transparent;
-    font-size: 22px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px;
-    transition: color 0.15s;
-}
-#closeHowToUse:hover {
-    color: #ffecb3;
-}
-#howToUseDetails {
-    padding: 18px 24px 18px 32px;
-}
-#howToUseDetails ul {
-    margin: 0 0 0 0;
-    padding: 0 0 0 20px;
-}
-#howToUseDetails li {
-    margin-bottom: 7px;
-    list-style-type: disc;
-}
-#howToUseDetails .email-link {
-    color:#1976d2;
-    text-decoration:underline;
-    word-break:break-all;
-}
 @media (max-width:600px) {
-    #howToUseContent {max-width:95vw;}
-    #howToUseDetails {padding: 14px 8px 14px 18px;}
-    #howToUseContentHeader {font-size: 16px; padding:8px 12px;}
+    .table-wrapper{padding:0;}
+    table{font-size:13px;}
 }
 </style>
 </head>
@@ -212,38 +130,36 @@ button{padding:4px 6px;margin:2px;cursor:pointer;border-radius:3px;}
 </div>
 
 <!-- How To Use Modal -->
-<div id="howToUseModal">
-    <div id="howToUseContent">
-        <div id="howToUseContentHeader">
-
-        
-        How to Use
-        <button id="closeHowToUse" title="Close">&times;</button>
-      </div>
-      <div id="howToUseDetails">
-        <ul>
-          <li>ग्रेड निकालने के लिए निर्देशों का Step by Step पालन करें।</li>
-          <li>सबसे पहले <b>Grade Range</b> से 100, 80, 75, 70 में से ग्रेड सिलेक्ट करें। <br>
-            <b>ग्रेड रेंज आप खुद भी सेट कर सकते हैं।</b>
-          </li>
-          <li>उसके बाद Student table की पहली लाइन में पहला रोल नंबर डालें।</li>
-          <li>उसके बाद 'Add Row' बटन प्रेस कर छात्र संख्या अनुसार लाइन ऐड करें। तब अगले सभी रोल नंबर भी अपने आप ऐड हो जाएंगे।</li>
-          <li>फिर नाम, जन्म दिनांक, लिंग, जाति भरें। जो कॉलम नहीं चाहिए उसे <b>'Hide Column'</b> से हाइड कर सकते हैं। जब चाहें तो <b>'Show Column'</b> से वापस देख सकते हैं।</li>
-          <li>अंत में <b>'Obtained Marks'</b> में प्राप्तांक भरते जाएं। अंक 2 डिजिट में ही भरें।</li>
-          <li>0 या 1 से 9 तक प्राप्तांक होने पर 00, 01, 02 आदि भरें। दो डिजिट भरने पर कर्सर अगले कॉलम में चला जाएगा।</li>
-          <li>प्राप्तांक भरने पर आपके ग्रेड, प्रतिशत और ग्रेड वाइज, जाति वाइज, लिंग वाइज ग्रोथवारा मिल जाएगा।</li>
-          <li>लिंग और जाति वाइज ग्रोथवारे के लिए आपको स्टूडेंट के लिंग और जाति वाले कॉलम भरना होंगे।</li>
-          <li>प्रिंट में सिलेक्ट ऑप्शन द्वारा आप जो डाटा चाहिए उसके प्रिंट या <b>PDF</b> सेव कर सकेंगे।</li>
-          <li>Reset Student Table से पूरी टेबल रिसेट हो जाएगी।</li>
-          <li>Delete ऑप्शन से पूरी लाइन डिलीट हो जाएगी।</li>
-          <li>कुछ error या suggestion के लिए हमें E-mail करें।<br>
-            <b>E-mail us at: <a href="mailto:skycommunics@gmail.com" class="email-link">skycommunics@gmail.com</a></b>
-          </li>
-        </ul>
-      </div>
+<div id="howToUseModal" style="display:none;">
+    <div id="howToUseContent" style="background:#e3f2fd;color:#0d2346;margin:70px auto;padding:0;border-radius:8px;max-width:500px;box-shadow:0 4px 24px rgba(25,118,210,.13);position:relative;font-size:15px;">
+        <div id="howToUseContentHeader" style="background:#1976d2;color:#fff;font-weight:bold;padding:12px 18px;border-radius:8px 8px 0 0;font-size:18px;letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;">
+            How to Use
+            <button id="closeHowToUse" title="Close" style="color:#fff;background:transparent;font-size:22px;font-weight:bold;border:none;cursor:pointer;margin-left:10px;transition:color 0.15s;">&times;</button>
+        </div>
+        <div id="howToUseDetails" style="padding:18px 24px 18px 32px;">
+            <ul>
+              <li>Grade निकालने के लिए निर्देशों का Step by Step पालन करें।</li>
+              <li>सबसे पहले <b>Grade Range</b> से 100, 80, 75, 70 में से ग्रेड सिलेक्ट करें। <br>
+                <b>ग्रेड रेंज आप खुद भी सेट कर सकते हैं।</b>
+              </li>
+              <li>उसके बाद Student table की पहली लाइन में पहला रोल नंबर डालें।</li>
+              <li>उसके बाद 'Add Row' बटन प्रेस कर बाकी लाइन ऐड करें। तब अगले सभी रोल नंबर भी अपने आप ऐड हो जाएंगे।</li>
+              <li>फिर नाम, जन्म दिनांक, लिंग, जाति भरें। जो कॉलम नहीं चाहिए उसे <b>'Hide Column'</b> से हाइड कर सकते हैं। जब चाहें तो <b>'Show Column'</b> से वापस देख सकते हैं।</li>
+              <li>अंत में <b>'Obtained Marks'</b> में प्राप्तांक भरते जाएं। अंक 2 डिजिट में ही भरें।</li>
+              <li>0 या 1 से 9 तक प्राप्तांक होने पर 00, 01, 02 आदि भरें। दो डिजिट भरने पर कर्सर अगले कॉलम में चला जाएगा।</li>
+              <li>प्राप्तांक भरने पर आपके ग्रेड, प्रतिशत और ग्रेड वाइज, जाति वाइज, लिंग वाइज ग्रोथवारा मिल जाएगा।</li>
+              <li>लिंग और जाति वाइज ग्रोथवारे के लिए आपको स्टूडेंट के लिंग और जाति वाले कॉलम भरना होंगे।</li>
+              <li>प्रिंट में सिलेक्ट ऑप्शन द्वारा आप जो डाटा चाहें उसे प्रिंट या <b>PDF</b> सेव कर सकेंगे।</li>
+              <li>Reset Student Table से पूरी टेबल रिसेट हो जाएगी।</li>
+              <li>Delete ऑप्शन से पूरी लाइन डिलीट हो जाएगी।</li>
+              <li>कु्छ error या suggestion के लिए हमें E-mail करें।<br>
+                <b>E-mail us at: <a href="mailto:skycommunics@gmail.com" class="email-link">skycommunics@gmail.com</a></b>
+              </li>
+            </ul>
+        </div>
     </div>
-  </div>
-  <!-- End Modal -->
+</div>
+<!-- End Modal -->
 
 <div class="table-wrapper">
     <div class="table-title">Students Table</div>
@@ -420,26 +336,14 @@ button{padding:4px 6px;margin:2px;cursor:pointer;border-radius:3px;}
 
 <div class="table-wrapper">
     <div id="exportControls">
-        <div id="printOptions">
-            <select id="printSelect">
-                <option value="">Select</option>
-                <option value="students">Student Table</option>
-                <option value="grade">Grade Summary</option>
-                <option value="gender">Gender Summary</option>
-                <option value="caste">Caste Summary</option>
-                <option value="all">All</option>
-            </select>
-            <button id="printBtn">Print</button>
-        </div>
         <button id="exportExcelBtn">Export to Excel</button>
     </div>
 </div>
 
 <!-- SheetJS for Excel export -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-
 <script>
-// How to Use Modal Logic
+// Modal logic
 document.getElementById("howToUseBtn").onclick = function() {
     document.getElementById("howToUseModal").style.display = "block";
     document.body.style.overflow = "hidden";
@@ -455,8 +359,6 @@ document.getElementById("howToUseModal").onclick = function(e) {
     }
 };
 
-// --- Existing untouched JS below ---
-
 let hiddenColumns = [];
 const columnNames = [
     "S.No", "Roll No", "Name", "Gender", "Caste", "DOB", "Obtained Marks", "Grade", "Percentage", "Action"
@@ -470,9 +372,7 @@ function loadFromLocalStorage() {
     return data ? JSON.parse(data) : null;
 }
 
-// Save all data (students table, grade ranges, max marks)
 function getCurrentData() {
-    // Students
     let students = [];
     document.querySelectorAll("#studentsTable tbody tr").forEach(row => {
         students.push({
@@ -484,7 +384,6 @@ function getCurrentData() {
             marks: row.querySelector(".marks")?.value || ""
         });
     });
-    // Grade ranges
     let gradeRanges = [];
     document.querySelectorAll("#gradeRangesTable tr").forEach((tr, idx) => {
         if(idx==0) return;
@@ -498,9 +397,7 @@ function getCurrentData() {
     return {students, gradeRanges, maxMarks};
 }
 
-// Restore all data
 function restoreData(data) {
-    // Grade ranges
     if(data.gradeRanges){
         let trs = document.querySelectorAll("#gradeRangesTable tr");
         data.gradeRanges.forEach((gr, i) => {
@@ -510,11 +407,9 @@ function restoreData(data) {
             }
         });
     }
-    // Max marks
     if(data.maxMarks){
         document.getElementById("maxMarksInput").value = data.maxMarks;
     }
-    // Students
     const tbody=document.querySelector("#studentsTable tbody");
     tbody.innerHTML="";
     if(data.students && data.students.length>0){
@@ -593,7 +488,6 @@ function updateHiddenColumnsIndicator() {
     indicator.innerHTML = html;
 }
 
-// --- Hide Column Logic ---
 document.getElementById("hideColumnSelect").addEventListener("change", function(){
     let idx = parseInt(this.value);
     if(hiddenColumns.includes(idx) || idx < 1 || idx === columnNames.length-1) return;
@@ -605,8 +499,6 @@ document.getElementById("hideColumnSelect").addEventListener("change", function(
     updateHideShowSelects();
     updateHiddenColumnsIndicator();
 });
-
-// --- Show Column Logic ---
 document.getElementById("showColumnSelect").addEventListener("change", function(){
     let idx = parseInt(this.value);
     if(!hiddenColumns.includes(idx)) return;
@@ -618,8 +510,6 @@ document.getElementById("showColumnSelect").addEventListener("change", function(
     updateHideShowSelects();
     updateHiddenColumnsIndicator();
 });
-
-// Show column by clicking on indicator
 document.getElementById('hiddenColumnsIndicator').addEventListener('click', function(e){
     if(e.target.classList.contains('hidden-column-indicator')) {
         let idx = parseInt(e.target.dataset.index);
@@ -651,7 +541,6 @@ function updateAllRows(){
     document.querySelectorAll("#studentsTable tbody tr").forEach(row=>{
         const marksInput=row.querySelector(".marks");
         let marks=parseFloat(marksInput.value);
-        // Red box on invalid, normal on valid
         if(!isNaN(marks) && marks>maxMarks){
             marksInput.classList.add("invalid");
         } else {
@@ -845,7 +734,7 @@ document.getElementById("resetStudentsBtn").addEventListener("click",()=>{
     document.querySelector("#studentsTable tbody").innerHTML="";
     addRow();
     updateAllRows();
-    localStorage.removeItem("studentsTableData"); // Only reset here
+    localStorage.removeItem("studentsTableData");
 });
 document.getElementById("maxMarksInput").addEventListener("input",updateAllRows);
 document.querySelectorAll(".rangeFrom, .rangeTo").forEach(inp=>inp.addEventListener("input",updateAllRows));
@@ -887,7 +776,6 @@ document.querySelectorAll('.grade-btn').forEach(btn=>{
     });
 });
 
-// Restore table on page load
 window.addEventListener("DOMContentLoaded",function(){
     let data = loadFromLocalStorage();
     if(data){
@@ -898,93 +786,81 @@ window.addEventListener("DOMContentLoaded",function(){
     updateAllRows();
     updateHideShowSelects();
 });
-// Save on every change
 document.addEventListener("input",function(e){
     if(e.target.closest("#studentsTable") || e.target.closest("#gradeRangesTable") || e.target.id=="maxMarksInput"){
         saveToLocalStorage(getCurrentData());
     }
 });
 
+// --------- ADVANCED EXPORT TO EXCEL ---------
+function sanitizeExcel(val) {
+    if(val == null || val === undefined) return "N/A";
+    let s = String(val).replace(/[\r\n\t]/g, " ").replace(/^\s+|\s+$/g, "");
+    if(s === "" || s === "--") return "N/A";
+    return s;
+}
 document.getElementById("exportExcelBtn").addEventListener("click",()=>{
+    // Find visible columns (exclude last 'Action' column)
+    const table = document.getElementById("studentsTable");
+    const thead = table.querySelector("thead tr");
+    const ths = Array.from(thead.cells);
+    let visibleIdx = [];
+    let colNames = [];
+    for(let i=0; i<ths.length-1; i++) { // -1 to exclude Action/Delete column
+        if(ths[i].style.display !== "none") {
+            visibleIdx.push(i);
+            colNames.push(ths[i].textContent.trim());
+        }
+    }
+    // Get rows data
+    const tbody = table.querySelector("tbody");
+    let data = [];
+    for(let row of tbody.rows) {
+        let rowData = [];
+        visibleIdx.forEach(idx=>{
+            let cell = row.cells[idx];
+            let val = "";
+            let input = cell.querySelector("input");
+            let select = cell.querySelector("select");
+            if(select) {
+                let opt = select.options[select.selectedIndex];
+                val = opt && opt.value ? opt.textContent : "N/A";
+            } else if(input) {
+                val = input.value;
+            } else {
+                val = cell.textContent;
+            }
+            rowData.push(sanitizeExcel(val));
+        });
+        data.push(rowData);
+    }
+    // Build worksheet
+    let ws_data = [colNames, ...data];
+    let ws = XLSX.utils.aoa_to_sheet(ws_data);
+
+    // Add summaries as separate sheets
+    function sheetFromTable(id) {
+        let tab = document.getElementById(id);
+        let rows = tab.rows;
+        let sdata = [];
+        for(let r=0; r<rows.length; r++) {
+            let rowArr = [];
+            for(let c=0; c<rows[r].cells.length; c++) {
+                let cell = rows[r].cells[c];
+                rowArr.push(sanitizeExcel(cell.textContent));
+            }
+            sdata.push(rowArr);
+        }
+        return XLSX.utils.aoa_to_sheet(sdata);
+    }
     const wb = XLSX.utils.book_new();
-    const ws1 = XLSX.utils.table_to_sheet(document.getElementById("studentsTable"));
-    XLSX.utils.book_append_sheet(wb, ws1, "Students");
-    const ws2 = XLSX.utils.table_to_sheet(document.getElementById("gradeSummary"));
-    XLSX.utils.book_append_sheet(wb, ws2, "Grade Summary");
-    const ws3 = XLSX.utils.table_to_sheet(document.getElementById("genderSummary"));
-    XLSX.utils.book_append_sheet(wb, ws3, "Gender Summary");
-    const ws4 = XLSX.utils.table_to_sheet(document.getElementById("casteSummary"));
-    XLSX.utils.book_append_sheet(wb, ws4, "Caste Summary");
+    XLSX.utils.book_append_sheet(wb, ws, "Students");
+    XLSX.utils.book_append_sheet(wb, sheetFromTable("gradeSummary"), "Grade Summary");
+    XLSX.utils.book_append_sheet(wb, sheetFromTable("genderSummary"), "Gender Summary");
+    XLSX.utils.book_append_sheet(wb, sheetFromTable("casteSummary"), "Caste Summary");
+
     XLSX.writeFile(wb, "Student_Grades.xlsx");
 });
-
-document.getElementById("printBtn").addEventListener("click", function(){
-    let val = document.getElementById("printSelect").value;
-    if (!val) return;
-    let toPrint;
-    if(val==="students") {
-        // Print student table with input values
-        const studentsTable = document.getElementById("studentsTable");
-        let tableClone = studentsTable.cloneNode(true);
-        let thead = tableClone.querySelector("thead");
-        let tbody = tableClone.querySelector("tbody");
-        hiddenColumns.forEach(idx => {
-            if (thead && thead.rows[0].cells[idx]) thead.rows[0].cells[idx].style.display = "";
-            if (tbody) {
-                Array.from(tbody.rows).forEach(row=>{
-                    if(row.cells[idx]) row.cells[idx].style.display = "";
-                });
-            }
-        });
-        // Convert inputs/selects to their values
-        Array.from(tbody.rows).forEach(row=>{
-            for(let i=0; i<row.cells.length; i++){
-                let cell = row.cells[i];
-                let input = cell.querySelector("input");
-                let select = cell.querySelector("select");
-                if(input) {
-                    let val = input.value;
-                    cell.innerHTML = val;
-                }
-                if(select) {
-                    let val = select.options[select.selectedIndex].textContent;
-                    cell.innerHTML = val=="--"?"":val;
-                }
-            }
-        });
-        let printHTML = '<table style="border-collapse:collapse;">'+thead.outerHTML+tbody.outerHTML+'</table>';
-        let printWindow = window.open('', '', 'height=900,width=1200');
-        printWindow.document.write('<html><head><title>Print</title>');
-        printWindow.document.write('<style>th{background:#222;color:#fff;}tfoot tr, tfoot th, tfoot td{background:#222 !important;color:#fff !important;font-weight:bold;}table{border-collapse:collapse;}th,td{border:1px solid #333;padding:4px;text-align:center;}body{font-family:Arial,sans-serif;}</style>');
-        printWindow.document.write('</head><body>');
-        printWindow.document.write(printHTML);
-        printWindow.document.write('</body></html>');
-        printWindow.document.close();
-        setTimeout(()=>printWindow.print(),200);
-        return;
-    }
-    else if(val==="grade") toPrint = document.querySelector(".table-wrapper:nth-of-type(3)");
-    else if(val==="gender") toPrint = document.querySelector(".table-wrapper:nth-of-type(4)");
-    else if(val==="caste") toPrint = document.querySelector(".table-wrapper:nth-of-type(5)");
-    else if(val==="all") toPrint = document.body;
-    let printContents = (toPrint===document.body) ? document.body.innerHTML : toPrint.outerHTML;
-    let dummy = document.createElement('div');
-    dummy.innerHTML = printContents;
-    let exportBox = dummy.querySelector("#exportControls");
-    if(exportBox) exportBox.style.display="none";
-    let lastTitle = dummy.querySelector('.table-title');
-    if(lastTitle && val!=="all") lastTitle.style.display="none";
-    let style = '<style>th{background:#222;color:#fff;}tfoot tr, tfoot th, tfoot td{background:#222 !important;color:#fff !important;font-weight:bold;}table{border-collapse:collapse;}th,td{border:1px solid #333;padding:4px;text-align:center;}body{font-family:Arial,sans-serif;}</style>';
-    let printWindow = window.open('', '', 'height=900,width=1200');
-    printWindow.document.write('<html><head><title>Print</title>');
-    printWindow.document.write(style);
-    printWindow.document.write('</head><body>');
-    printWindow.document.write(dummy.innerHTML);
-    printWindow.document.write('</body></html>');
-    printWindow.document.close();
-    setTimeout(()=>printWindow.print(),200);
-});
 </script>
-
 </body>
 </html>
