@@ -980,5 +980,13 @@
       attachGradeRangeEditors();
     });
   </script>
+
+// ✅ Register Online-only Service Worker for PWA
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js")
+    .then(() => console.log("Service Worker registered (online-only mode)"))
+    .catch(err => console.log("Service Worker failed:", err));
+}
+
 </body>
 </html>
