@@ -5,12 +5,10 @@
   <title>Exam Result Tool</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Bootstrap (unchanged) -->
+  <!-- Bootstrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
-<link rel="manifest" href="manifest.json">
-
-  <!-- Google tag (unchanged) -->
+  <!-- Google tag -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NC130TNCZL"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -18,6 +16,9 @@
     gtag('js', new Date());
     gtag('config', 'G-NC130TNCZL');
   </script>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
 
   <style>
     body{font-family:Arial,sans-serif;margin:20px;background:#f8f9fa;}
@@ -53,9 +54,24 @@
     }
     .grade-note{color:#c62828;font-size:12px;margin-top:6px;margin-bottom:6px;}
     .subjectLabelRow th{background:#1976d2;color:#fff;text-align:center;font-size:15px;}
+    /* small polish */
+    #howToUseDetails h3, .table-wrapper h2, .table-wrapper h3 { letter-spacing:.2px; }
+    #howToUseDetails ol li, .table-wrapper ol li { margin-bottom:6px; }
+
+    /* Install banner */
+    #installBanner{display:none;position:fixed;top:12px;right:12px;background:#1976d2;color:#fff;padding:10px 12px;border-radius:8px;z-index:2000;box-shadow:0 6px 20px rgba(0,0,0,.15);}
+    #installBanner button{margin-left:8px;background:#fff;color:#1976d2;border:none;border-radius:6px;padding:4px 8px;}
+    #installBanner .close{background:transparent;color:#fff;margin-left:10px;font-size:18px;line-height:1;}
   </style>
 </head>
 <body>
+
+  <!-- Install banner (shows only when installable & not installed) -->
+  <div id="installBanner">
+    Install Teachers Tool?
+    <button id="installNowBtn">Install</button>
+    <button id="installCloseBtn" class="close" title="Close">×</button>
+  </div>
 
   <!-- Grade ranges & limits -->
   <div class="table-wrapper">
@@ -84,7 +100,8 @@
       </div>
 
       <div class="grade-note" id="gradeNoteMoved">
-        <b>नोट –</b> पूर्णांक सेट करने के बाद एक बार ग्रेड को शिक्षा विभाग द्वारा दी गई ग्रेड टेबल से मिलान कर लें। यदि इसमें कोई त्रुटि हो तो यहाँ सही कर लें।
+        <b>नोट –</b> पूর্ণांक सेट करने के बाद एक बार ग्रेड को शिका विभाग द्वारा दी गई ग्रेड टेबल से मिलान कर लें।
+        यदि इसमें कोई त्रुटि हो तो यहाँ सही कर लें।
       </div>
     </div>
 
@@ -102,18 +119,44 @@
 
   <!-- महत्वपूर्ण निर्देश Modal -->
   <div id="howToUseModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.23);z-index:1000;">
-    <div id="howToUseContent" style="background:#e3f2fd;color:#0d2346;margin:70px auto;padding:0;border-radius:8px;max-width:600px;box-shadow:0 4px 24px rgba(25,118,210,.13);position:relative;font-size:15px;max-height:80vh;overflow-y:auto;">
+    <div id="howToUseContent" style="background:#e3f2fd;color:#0d2346;margin:70px auto;padding:0;border-radius:8px;max-width:800px;box-shadow:0 4px 24px rgba(25,118,210,.13);position:relative;font-size:15px;max-height:80vh;overflow-y:auto;">
       <div id="howToUseContentHeader" style="background:#1976d2;color:#fff;font-weight:bold;padding:12px 18px;border-radius:8px 8px 0 0;font-size:18px;letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;">
         महत्वपूर्ण निर्देश
         <button id="closeHowToUse" title="Close" style="color:#fff;background:transparent;font-size:22px;font-weight:bold;border:none;cursor:pointer;margin-left:10px;">&times;</button>
       </div>
       <div id="howToUseDetails" style="padding:18px 24px 18px 32px;">
-        <ul>
-          <li>पहले <b>Select Subject Code</b> चुनें; फिर <b>Set Maximum Marks</b> और <b>Set Project Marks</b> दर्ज करें।</li>
-          <li>जब तक कोई Subject select नहीं होगा, Students Table में उस Subject के Obtained/प्राप्तांक और Project इनपुट बंद रहेंगे।</li>
-          <li>Grand Total = जिन Subjects में इनपुट है उनका योग। Project खाली हो तो केवल MM से % निकलेगा; Project भरा हो तो MM+Project limit से % निकलेगा। 0/00 वैध है; blank नहीं जोड़ा जाएगा।</li>
-          <li>ABS लिखने पर छात्र अनुपस्थित माना जाएगा — ग्रेड “– –” दिखेगा और काउंट अलग “ABS Students” तालिका में जोड़ा जाएगा (केवल ग्रेड समरी में)।</li>
-        </ul>
+        <div style="font-size:15px; line-height:1.6">
+          <h3 style="margin:6px 0 12px; color:#0d2346;">Teachers Tool को कैसे यूज़ करें (त्वरित निर्देश)</h3>
+          <p>
+            हर शिष्य को अपने-अपने विषय का रिज़ल्ट तैयार करना होता है। उसे ग्रेड भी निकालनी होती है — जो मानक रूप से
+            ठका देने वाला कार्य है। <b>Teachers Tool</b> की सहायता से आप आसानी से ग्रेड निकाल सकते हैं। बस अपने
+            <b>पर्ण/प्रतिपर्ण</b> तयार रखें और इस टूल से चुटकियों में ग्रेड निकालें।
+          </p>
+
+          <ol style="padding-left:18px;">
+            <li>यह टूल एक विषय या सभी विषयों का रिज़ल्ट तैयार कर सकता है।</li>
+            <li>टोटल ग्रेड, <b>Gender-wise</b> ग्रेड और <b>Caste-wise</b> ग्रेड — सब कुछ तुरन्त देखें।</li>
+            <li>विषय A, B, C, D, E, F हैं और महायोग (Grand Total) को G दिया गया है। आप किसी भी असली विषय को A/B/C… मानकर प्रपत्र भरें।</li>
+            <li><b>Select Subject Code</b> से पहले A/B/C… चुनें — <b>जब तक चयन नहीं करेंगे, उसी विषय के Obtained/Project इनपुट लॉक रहेंगे।</b></li>
+            <li><b>Set Maximum Marks</b> में प्रश्न-पत्र का पूर्णांक (जैसे 80/75/70) और <b>Set Project Marks</b> में प्रोजेक्ट नंबर (जैसे 20/25/30) सेट करें।</li>
+            <li>ग्रेड शिका विभाग की तालिका के अनुसार स्वतः सेट हो जाती है; चाहें तो आप From/To बदलकर सूक्ष्म सुधार कर सकते हैं (जैसे E2: 0–15, E1: 16–26, D: 27–35)।</li>
+            <li>Roll No. डालकर <b>+ Add Row</b> से नई पंक्तियाँ जोड़ें; गलत पंक्ति <b>Delete</b> से हटाएँ।</li>
+            <li>Gender में <b>M</b> या <b>F</b> टाइप करें; Caste में <b>SC/ST/OBC/GENERAL</b> (या <b>GEN</b>) टाइप करें।</li>
+            <li>Obtained/प्राप्तांक व Project — <b>दो अंकों</b> तक का इनपुट लें (जैसे 12, 40)। <b>अनुपस्थित के लिये 'ABS'</b> टाइप करें।</li>
+            <li>ABS वाले छात्र की ग्रेड/प्रतिशत नहीं निकलेगी और उसे Grand Total में जोड़ा नहीं जाएगा — लेकिन <b>ABS Students</b> तालिका में उसकी गिनती दिखेगी।</li>
+            <li><b>Hide Column</b> से Roll No/Name/Gender/Caste/DOB छिपा सकते हैं — <b>Show Column</b> से वापस दिखाएँ।</li>
+            <li>सब कुछ Auto-Save होता रहता है — पेज दोबारा खोलने पर डेटा सुरक्षित मिलता है।</li>
+            <li>प्रिंट/एक्सेल निर्यात उपलब्ध है: Students Table, Summaries या All — तीनों विकल्पों में।</li>
+            <li><b>Install</b>: यह टूल PWA रूप में इंस्टॉल भी किया जा सकता है — बार-बार उपयोग हेतु सुविधाजनक।</li>
+          </ol>
+          <div style="margin-top:10px;padding:8px 10px;border-left:4px solid #d32f2f;background:#ffebee;color:#b71c1c;">
+            <b>नोट:</b> पूর্ণांक सेट करने के बाद एक बार ग्रेड को शिका विभाग द्वारा दी गई ग्रेड टेबल से मिलान कर लें।
+            यदि कोई त्रुटि हो तो यहाँ (Grade Ranges) में सही कर लें।
+          </div>
+          <div style="margin-top:12px;font-size:14px;">
+            संपर्क: <a href="mailto:skycommunics@gmail.com">skycommunics@gmail.com</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -203,13 +246,27 @@
     </div>
   </div>
 
-  <!-- How to use Teachers Tool (blank section) -->
+  <!-- How to use Teachers Tool (डिटेल गाइड) -->
   <div class="table-wrapper">
     <div class="table-title">How to use Teachers Tool</div>
-    <div style="padding:12px;color:#333;">
-      <!-- Keep blank as requested -->
+    <div style="padding:12px;color:#333; font-size:15px; line-height:1.7;">
+      <h2 style="font-size:20px; color:#0d2346; margin:0 0 12px;">Teachers Tool को कैसे यूज़ करें</h2>
+      <p>
+        हर शिष्य को अपने-अपने विषय का रिज़ल्ट तैयार करना होता है और ग्रेड निकालनी होती है — जो मानसिक रूप से ठका देने वाला कार्य है।
+        <b>Teachers Tool</b> की सहायता से आप अपने <b>पर्ण/प्रतिपर्ण</b> के आधार पर चुटकियों में ग्रेड निकाल सकते हैं।
+      </p>
+
+      <ol style="padding-left:18px;">
+        <li>यह टूल एक विषय या सभी विषयों का रिज़ल्ट तैयार कर सकता है।</li>
+        <li>टोटल ग्रेड, <b>Gender-wise</b> ग्रेड, और <b>Caste-wise</b> ग्रेड निकालें जा सकते हैं।</li>
+        <li>ग्रेड को हर विषय (A–F) और <b>महायोग</b> (G) के अनुसार अलग-अलग देखा जा सकता है।</li>
+        <li>जो कॉलम नहीं चाहिये (Name/Gender/Caste/DOB) उन्हें <b>Hide Column</b> से छिपायें; छिपे हुये कॉलम “Hidden” चिप में दिखते हैं, <b>Show Column</b> से वापस दिखायें।</li>
+        <li>Gender में <b>M</b> या <b>F</b>; Caste में <b>SC/ST/OBC/GEN</b> टाइप करें (GEN को GENERAL गिना जाता है)।</li>
+        <li><b>Obtained/प्राप्तांक</b> और <b>Project</b> — केवल दो अंकों का इनपुट (00–99)। <b>अनुपस्थित के लिये 'ABS'</b> टाइप करें।</li>
+      </ol>
+
       <div style="margin-top:16px;font-size:14px;">
-        Contact: <a href="mailto:skycommunics@gmail.com">skycommunics@gmail.com</a>
+        कोई त्रुटि/सुझाव हो तो ई-मेल करें: <a href="mailto:skycommunics@gmail.com">skycommunics@gmail.com</a>
       </div>
     </div>
   </div>
@@ -240,9 +297,11 @@
         to: parseInt(tr.querySelector(".percentTo").textContent)||0
       }));
     }
+    // Round percentage before matching (56/75 → 74.67 → 75)
     function gradeFromPercent(p){
+      const q = Math.round(p);
       const ranges=getPercentRanges();
-      for(const r of ranges){ if(p>=r.from && p<=r.to) return r.grade; }
+      for(const r of ranges){ if(q>=r.from && q<=r.to) return r.grade; }
       return "";
     }
     function getDisplayGrandDenominator(){
@@ -286,7 +345,7 @@
         const low=rows[i]; const up=rows[i-1];
         const lowTo=parseInt(low.querySelector(".rangeTo").value)||0;
         const upFrom=parseInt(up.querySelector(".rangeFrom").value)||0;
-        if(upFrom<=lowTo) up.querySelector(".rangeFrom").value = lowTo+1; // bump upper FROM
+        if(upFrom<=lowTo) up.querySelector(".rangeFrom").value = lowTo+1;
       }
     }
     function attachGradeRangeEditors(){
@@ -410,17 +469,23 @@
     function saveAll(){
       const students=[];
       document.querySelectorAll("#studentsTable tbody tr").forEach(row=>{
-        const rec={ roll:row.querySelector(".roll")?.value||"", name:row.querySelector(".name")?.value||"", gender:(row.querySelector(".gender")?.value||"").toUpperCase(), caste:(row.querySelector(".caste")?.value||"").toUpperCase(), dob:row.querySelector(".dob-input")?.value||"" };
+        const rec={
+          roll:row.querySelector(".roll")?.value||"",
+          name:row.querySelector(".name")?.value||"",
+          gender:(row.querySelector(".gender")?.value||"").toUpperCase(),
+          caste:(row.querySelector(".caste")?.value||"").toUpperCase(),
+          dob:row.querySelector(".dob-input")?.value||""
+        };
         SUBJECTS.forEach(s=>{
           rec[`obt_${s}`]=row.querySelector(`.marks-${s}`)?.value||"";
           rec[`proj_${s}`]=row.querySelector(`.project-${s}`)?.value||"";
         });
         students.push(rec);
       });
-      localStorage.setItem("students_v7", JSON.stringify({limits,students}));
+      localStorage.setItem("students_v9", JSON.stringify({limits,students}));
     }
     function loadAll(){
-      try{const raw=localStorage.getItem("students_v7");return raw?JSON.parse(raw):null;}catch{return null;}
+      try{const raw=localStorage.getItem("students_v9");return raw?JSON.parse(raw):null;}catch{return null;}
     }
 
     /***********************
@@ -431,39 +496,57 @@
     function normUpper(s){ return (s||"").toUpperCase(); }
     function isABS(inputEl){ return (inputEl && inputEl.value.trim().toUpperCase()==="ABS"); }
 
-    // Two-character rule for Obtained/Project:
-    // - allow letters (for A -> ABS) and digits
-    // - if starts with A/a => convert to "ABS" (3 chars allowed)
-    // - else restrict to max two characters [0-9A-Za-z], but we’ll only keep first two
-    function enforceTwoCharOrABS(el){
-      let v=el.value;
-      if(!v) return;
-      if(/^a$/i.test(v) || /^ab$/i.test(v) || /^abs$/i.test(v)){
-        el.value="ABS";
-        el.classList.add("abs-input");
+    /* Allow alphabets for ABS and numerics (two digits) – already fixed earlier; keep intact */
+    function sanitizeMarksInput(el){
+      let v = el.value;
+      if (!v) { el.classList.remove("abs-input"); return; }
+      v = v.toString();
+
+      // Allow progressive ABS typing (A / AB / ABS)
+      const up = v.toUpperCase();
+      if (/^A$|^AB$|^ABS$/.test(up)) {
+        el.value = up;
+        if (up === "ABS") el.classList.add("abs-input"); else el.classList.remove("abs-input");
         return;
       }
+
+      // Otherwise keep only digits up to 2
+      const digits = v.replace(/[^0-9]/g,"").slice(0,2);
       el.classList.remove("abs-input");
-      // keep only letters/digits
-      v = v.replace(/[^0-9a-z]/gi,"");
-      // if more than 2 chars (and not ABS), cut to 2
-      if(v.length>2) v = v.slice(0,2);
-      el.value = v;
+      el.value = digits;
     }
-    function padOneDigitOnBlur(el){
-      const v=el.value.trim().toUpperCase();
-      if(v==="" || v==="ABS") return;
-      if(/^\d$/.test(v)){ el.value = "0"+v; }
-    }
-    function autoMoveToNextRowSameField(currentInput, selector){
-      // Move to same column of next row
-      const row=currentInput.closest("tr");
-      const rows=Array.from(document.querySelectorAll("#studentsTable tbody tr"));
-      const idx=rows.indexOf(row);
-      if(idx<rows.length-1){
-        const next=rows[idx+1].querySelector(selector);
-        if(next && !next.disabled) next.focus();
+
+    function autoMoveIfCompleteTwoDigits(currentInput, selector){
+      const v=currentInput.value;
+      if(/^\d{2}$/.test(v)){ // only if exactly 2 digits
+        const row=currentInput.closest("tr");
+        const rows=Array.from(document.querySelectorAll("#studentsTable tbody tr"));
+        const idx=rows.indexOf(row);
+        if(idx<rows.length-1){
+          const next=rows[idx+1].querySelector(selector);
+          if(next && !next.disabled) next.focus();
+        }
       }
+    }
+
+    /* RESTORED LIMIT CHECK (no auto-correct): show error instead of clamping) */
+    function clampToLimit(el, limitVal, errEl, label){
+      if(isABS(el)){ errorHide(errEl); el.classList.remove('invalid'); return; }
+      const raw=el.value.trim();
+      // if empty or not 1-2 digits, clear error, do nothing
+      if(raw==="" || !/^\d{1,2}$/.test(raw)){ errorHide(errEl); el.classList.remove('invalid'); return; }
+
+      let num = parseInt(raw,10);
+      const cap = Math.min( (typeof limitVal==="number" ? limitVal : 99), 99 );
+
+      if(Number.isFinite(cap) && num > cap){
+        el.classList.add('invalid');
+        errorShow(errEl, `Max ${label} is ${cap}`);
+      } else {
+        el.classList.remove('invalid');
+        errorHide(errEl);
+      }
+      // IMPORTANT: do NOT change the value (no auto-correct)
     }
 
     /***********************
@@ -479,6 +562,7 @@
         subjectCells += `
           <td>
             <input type="text" class="marks-${s}" aria-label="Obtained ${s}" disabled data-locked="1" inputmode="text">
+            <div class="hint-text ${serial===1?'':'d-none'}">अनुपस्थित के लिये 'ABS' टाइप करें</div>
             <div class="error-text marks-${s}-err"></div>
           </td>
           <td class="grade-${s}"></td>
@@ -497,12 +581,12 @@
         <td><input type="text" class="name" placeholder="Name"></td>
         <td>
           <input type="text" class="gender" placeholder="">
-          <div class="hint-text gender-hint" style="display:none;">M या F टाइप करें</div>
+          <div class="hint-text gender-hint" style="${serial===1?'':'display:none;'}">M या F टाइप करें</div>
           <div class="error-text gender-error"></div>
         </td>
         <td>
           <input type="text" class="caste" placeholder="">
-          <div class="hint-text caste-hint" style="display:none;">यहाँ SC, ST, OBC, GENERAL टाइप करें</div>
+          <div class="hint-text caste-hint" style="${serial===1?'':'display:none;'}">SC, ST, OBC, GEN टाइप करें</div>
           <div class="error-text caste-error"></div>
         </td>
         <td>
@@ -519,19 +603,6 @@
 
       row.querySelector(".deleteBtn").addEventListener("click",()=>{ row.remove(); updateSerials(); updateAllRows(); saveAll(); });
 
-      // first row hints
-      if(serial===1){
-        row.querySelector(".gender-hint").style.display="block";
-        row.querySelector(".caste-hint").style.display="block";
-        SUBJECTS.forEach(s=>{
-          const cell=row.querySelector(`.marks-${s}`).parentElement;
-          const hint=document.createElement("div");
-          hint.className="hint-text";
-          hint.textContent="Absent के लिये 'A' टाइप करें";
-          cell.appendChild(hint);
-        });
-      }
-
       // Basic inputs
       row.querySelector(".roll").addEventListener("input", ()=>{ updateAllRows(); saveAll(); });
       row.querySelector(".name").addEventListener("input", ()=>{ updateAllRows(); saveAll(); });
@@ -546,13 +617,13 @@
         updateAllRows(); saveAll();
       });
 
-      // Caste
+      // Caste (GEN maps to GENERAL)
       const cEl=row.querySelector(".caste"), cErr=row.querySelector(".caste-error");
       cEl.addEventListener("input", ()=>{
         cEl.value=normUpper(cEl.value);
         const v=cEl.value.trim();
-        if(["","SC","ST","OBC","GENERAL"].includes(v)){ cEl.classList.remove("invalid"); errorHide(cErr); }
-        else { cEl.classList.add("invalid"); errorShow(cErr,"कृपया SC, ST, OBC, GENERAL टाइप करें"); }
+        if(["","SC","ST","OBC","GENERAL","GEN"].includes(v)){ cEl.classList.remove("invalid"); errorHide(cErr); }
+        else { cEl.classList.add("invalid"); errorShow(cErr,"SC, ST, OBC, GEN टाइप करें"); }
         updateAllRows(); saveAll();
       });
 
@@ -574,7 +645,7 @@
         updateAllRows(); saveAll();
       });
 
-      // Subject inputs (two-char rule + ABS + auto-move)
+      // Subject inputs
       SUBJECTS.forEach(s=>{
         const m=row.querySelector(`.marks-${s}`);
         const p=row.querySelector(`.project-${s}`);
@@ -593,24 +664,23 @@
 
         m.addEventListener("input", ()=>{
           if(m.dataset.locked==="1"){ if(requireSelected(m,me)){ m.value=""; return; } }
-          errorHide(me); // no visible errors requested
-          enforceTwoCharOrABS(m);
-          // auto move when two digits (not ABS)
-          const v=m.value.toUpperCase();
-          if(v.length===2 && v!=="AB" && v!=="ABS"){ autoMoveToNextRowSameField(m,`.marks-${s}`); }
+          sanitizeMarksInput(m);
+          const mm = limits[s].mm;
+          // VALIDATE against MM (no auto-correct)
+          if(mm!=="" && typeof mm!=="undefined") clampToLimit(m, parseFloat(mm)||0, me, "MM");
+          autoMoveIfCompleteTwoDigits(m, `.marks-${s}`);
           updateAllRows(); saveAll();
         });
-        m.addEventListener("blur", ()=>{ padOneDigitOnBlur(m); updateAllRows(); saveAll(); });
 
         p.addEventListener("input", ()=>{
           if(p.dataset.locked==="1"){ if(requireSelected(p,pe)){ p.value=""; return; } }
-          errorHide(pe);
-          enforceTwoCharOrABS(p);
-          const v=p.value.toUpperCase();
-          if(v.length===2 && v!=="AB" && v!=="ABS"){ autoMoveToNextRowSameField(p,`.project-${s}`); }
+          sanitizeMarksInput(p);
+          const pm = limits[s].pm;
+          // VALIDATE against PM (no auto-correct)
+          if(pm!=="" && typeof pm!=="undefined") clampToLimit(p, parseFloat(pm)||0, pe, "Project");
+          autoMoveIfCompleteTwoDigits(p, `.project-${s}`);
           updateAllRows(); saveAll();
         });
-        p.addEventListener("blur", ()=>{ padOneDigitOnBlur(p); updateAllRows(); saveAll(); });
       });
 
       // respect hidden columns for new row
@@ -621,13 +691,16 @@
 
     function updateSerials(){ document.querySelectorAll("#studentsTable tbody tr").forEach((r,i)=>{ r.cells[0].textContent=i+1; }); }
 
-    // compute rows
+    // Robust grade compute (uses rounded percentage, and ignores invalid inputs)
     function updateAllRows(){
       document.querySelectorAll("#studentsTable tbody tr").forEach(row=>{
         let grandNum=0, grandDen=0, anyInput=false, anyABS=false;
 
         SUBJECTS.forEach(s=>{
-          const mm=limits[s].mm, pm=limits[s].pm;
+          const mmRaw=limits[s].mm, pmRaw=limits[s].pm;
+          const mmVal = parseFloat(mmRaw) || 0;
+          const pmVal = parseFloat(pmRaw) || 0;
+
           const mEl=row.querySelector(`.marks-${s}`);
           const pEl=row.querySelector(`.project-${s}`);
           const tEl=row.querySelector(`.total-${s}`);
@@ -635,8 +708,12 @@
           const pcEl=row.querySelector(`.percent-${s}`);
 
           const mABS=isABS(mEl), pABS=isABS(pEl);
-          const mv=(mEl.value!=="" && !mABS)?parseFloat(mEl.value):NaN;
-          const pv=(pEl.value!=="" && !pABS)?parseFloat(pEl.value):NaN;
+          let mv=(mEl.value!=="" && !mABS && /^\d{1,2}$/.test(mEl.value))?parseFloat(mEl.value):NaN;
+          let pv=(pEl.value!=="" && !pABS && /^\d{1,2}$/.test(pEl.value))?parseFloat(pEl.value):NaN;
+
+          // If any field is marked invalid, ignore it in calculations
+          if(mEl.classList.contains('invalid')) mv = NaN;
+          if(pEl.classList.contains('invalid')) pv = NaN;
 
           const anySubInput=(mEl.value!==""||pEl.value!=="");
           if(anySubInput) anyInput=true;
@@ -652,15 +729,18 @@
           if(!Number.isNaN(pv)) subTot+=pv;
           tEl.value = anySubInput ? (""+subTot) : "";
 
-          // subject grade (based on obtained vs MM)
-          if(!Number.isNaN(mv) && mm!="" && mm>0){
-            const pct=(mv/mm)*100; pcEl.textContent=pct.toFixed(2); gEl.textContent=gradeFromPercent(pct);
-          } else { pcEl.textContent=""; gEl.textContent=""; }
+          // subject grade (based on obtained vs MM) – use rounded percent
+          if(!Number.isNaN(mv) && mmVal>0){
+            const pct=(mv/mmVal)*100;
+            pcEl.textContent=pct.toFixed(2);
+            gEl.textContent=gradeFromPercent(pct);
+          } else {
+            pcEl.textContent="";
+            gEl.textContent="";
+          }
 
           // grand total contributions
           if(anySubInput){
-            const mmVal=(mm===""?0:parseFloat(mm)||0);
-            const pmVal=(pm===""?0:parseFloat(pm)||0);
             grandNum += (!Number.isNaN(mv)?mv:0) + (!Number.isNaN(pv)?pv:0);
             if(pEl.value!==""){ grandDen += (mmVal+pmVal); }
             else { grandDen += mmVal; }
@@ -744,7 +824,8 @@
 
       document.querySelectorAll("#studentsTable tbody tr").forEach(row=>{
         const gender=(row.querySelector(".gender").value||"").toUpperCase();
-        const caste=(row.querySelector(".caste").value||"").toUpperCase();
+        let caste=(row.querySelector(".caste").value||"").toUpperCase();
+        if(caste==="GEN") caste="GENERAL";
 
         SUBJECTS.forEach(s=>{
           const mEl=row.querySelector(`.marks-${s}`);
@@ -824,6 +905,7 @@
       applySubjectSelectionUI();
       attachGradeRangeEditors();
       setGradeRangesFromPercent(getDisplayGrandDenominator());
+      fixDuplicateBoundaries(); // ensure initial boundaries are non-overlapping
       updateAllRows();
     }
     window.addEventListener("DOMContentLoaded", init);
@@ -842,7 +924,9 @@
       subjectSelect.value="";
       applySubjectSelectionUI();
       updateAllRows();
-      localStorage.removeItem("students_v7");
+      localStorage.removeItem("students_v9");
+      // also clear any lingering errors
+      document.querySelectorAll('.error-text').forEach(e=>errorHide(e));
     });
 
     // Persist on input
@@ -882,7 +966,7 @@
         const arr=[];
         visIdx.forEach(i=>{
           const td=tr.cells[i]; if(!td){arr.push("");return;}
-          const inp=td.querySelector("input"); arr.push(sanitize(inp?inp.value:td.textContent));
+          const inp=td.querySelector('input'); arr.push(sanitize(inp?inp.value:td.textContent));
         });
         rows.push(arr);
       }
@@ -901,15 +985,8 @@
           }
           XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(sdata), `${kind.toUpperCase()}_${code}`);
           if(kind==="grade"){
-            const absTab=document.getElementById(`grade_${code}_abs`); if(absTab){
-              const ad=[]; const t=absTab.parentNode.querySelector(".table-title:last-of-type")?.textContent||"ABS Students";
-              ad.push([t],[]);
-              for(let r=0;r<absTab.rows.length;r++){
-                const arr=[]; for(let c=0;c<absTab.rows[r].cells.length;c++){ arr.push(sanitize(absTab.rows[r].cells[c].textContent)); }
-                ad.push(arr);
-              }
-              XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(ad), `ABS_${code}`);
-            }
+            const abAoA=[["ABS Students"],[],["Label","Count"],["ABS", document.querySelector(`#grade_${code}_abs .abs-count`)?.textContent||"-"]];
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(abAoA), `ABS_${code}`);
           }
         });
       });
@@ -973,20 +1050,58 @@
       }
     });
 
-    // Init grade absolute once
-    window.addEventListener("load", ()=>{
-      const denom=getDisplayGrandDenominator();
-      setGradeRangesFromPercent(denom);
-      attachGradeRangeEditors();
+    /***********************
+     * PWA: online-only SW *
+     ***********************/
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js")
+        .then(() => console.log("Service Worker registered (online-only mode)"))
+        .catch(err => console.log("Service Worker failed:", err));
+    }
+
+    /***********************
+     * Install Banner      *
+     ***********************/
+    let deferredPrompt=null;
+    const banner=document.getElementById("installBanner");
+    const btnInstall=document.getElementById("installNowBtn");
+    const btnClose=document.getElementById("installCloseBtn");
+
+    function isStandalone(){
+      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    }
+
+    window.addEventListener('beforeinstallprompt',(e)=>{
+      e.preventDefault();
+      deferredPrompt = e;
+      if(!isStandalone()){
+        banner.style.display='block'; // show banner when installable
+      }
     });
-// ✅ Register Online-only Service Worker for PWA
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js")
-    .then(() => console.log("Service Worker registered (online-only mode)"))
-    .catch(err => console.log("Service Worker failed:", err));
-}
 
+    btnInstall.addEventListener('click', async ()=>{
+      if(!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log('Install choice:', outcome);
+      deferredPrompt = null;
+      banner.style.display='none';
+    });
+
+    btnClose.addEventListener('click', ()=>{
+      banner.style.display='none';
+    });
+
+    window.addEventListener('appinstalled', ()=>{
+      banner.style.display='none';
+      deferredPrompt=null;
+      console.log('App installed');
+    });
+
+    window.addEventListener('load', ()=>{
+      // hide banner if already installed
+      if(isStandalone()) banner.style.display='none';
+    });
   </script>
-
 </body>
 </html>
