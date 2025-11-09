@@ -5,10 +5,10 @@
   <title>Exam Result Tool</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- (Optional) Bootstrap reset -->
+  <!-- Bootstrap (unchanged) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
-  <!-- Google tag (gtag.js) -->
+  <!-- Google tag (unchanged) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NC130TNCZL"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -18,110 +18,58 @@
   </script>
 
   <style>
-    /* ===== Theme/look (same as your previous perfect build) ===== */
-    body { font-family: Arial, sans-serif; margin: 20px; background: #f8f9fa; }
-    .table-title {
-      background: #222; color: #fff; font-weight: bold;
-      padding: 6px 12px; border-radius: 4px 4px 0 0; margin-top: 30px; display: inline-block;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+    body{font-family:Arial,sans-serif;margin:20px;background:#f8f9fa;}
+    h2{margin-top:20px;}
+    .table-title{background:#222;color:#fff;font-weight:bold;padding:6px 12px;border-radius:4px 4px 0 0;margin-top:30px;display:inline-block;box-shadow:0 2px 5px rgba(0,0,0,0.12);}
+    .table-wrapper{border:1px solid #222;border-radius:4px;margin-bottom:28px;box-shadow:0 2px 5px rgba(0,0,0,0.08);background:#fff;padding-bottom:8px;overflow-x:auto;}
+    table{border-collapse:separate;border-spacing:0;margin-top:10px;width:100%;}
+    th,td{border:1px solid #333;padding:4px;text-align:center;vertical-align:middle;border-left-color:#fff;}
+    th{background:#222;color:#fff;}
+    tfoot tr, tfoot th, tfoot td {background:#222 !important;color:#fff !important;}
+    tfoot th, tfoot td {font-weight:bold;}
+    .summary-table{margin-top:10px;width:auto;}
+    input[type="number"],input[type="text"],select{width:90px;padding:2px;}
+    .dob-input{width:110px;}
+    .error-text{color:#c62828;font-size:12px;display:none;margin-top:2px;}
+    .hint-text{color:#b71c1c;font-size:12px;margin-top:2px;}
+    .invalid{border:2px solid #c62828 !important;}
+    .abs-input{color:#cc0000;font-weight:bold;}
+    button{padding:4px 6px;margin:2px;cursor:pointer;border-radius:3px;border:none;}
+    .btn-blue{background:#0077cc;color:#fff;}
+    .btn-blue:hover{background:#005fa3;}
+    .deleteBtn{background:#cc0000;color:#fff;padding:2px 6px;border-radius:3px;}
+    .deleteBtn:hover{background:#990000;}
+    .control-label{background:#0077cc;color:#fff;padding:4px 8px;border-radius:3px;margin-right:6px;display:inline-block;}
+    .hidden-chip{font-size:12px;color:#b71c1c;font-weight:bold;margin-left:8px;background:#ffe0e0;border-radius:3px;padding:0 6px;}
+    select{background:#e8f0fe;}
+    #studentsControls{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start;}
+    #studentsControls .control-row{display:flex;gap:8px;flex-wrap:wrap;}
+    @media (max-width:900px){
+      #studentsControls{flex-direction:column;}
+      #studentsControls .control-row{width:100%;}
+      #studentsControls select,#studentsControls button{width:100%;}
     }
-    .table-wrapper {
-      border: 1px solid #222; border-radius: 4px; margin-bottom: 28px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.08); background: #fff; padding-bottom: 8px; overflow-x: auto;
-    }
-
-    /* ===== Tables ===== */
-    table { border-collapse: separate; border-spacing: 0; margin-top: 10px; width: 100%; }
-    th, td {
-      border: 1px solid #333; padding: 4px; text-align: center; vertical-align: middle;
-      border-left-color: #fff; /* white divider so black headers don’t merge */
-    }
-    th { background: #222; color: #fff; }
-    tfoot tr, tfoot th, tfoot td { background: #222 !important; color: #fff !important; }
-    tfoot th, tfoot td { font-weight: bold; }
-    .summary-table { margin-top: 10px; width: auto; }
-    .subjectLabelRow th { background: #1976d2; color: #fff; text-align: center; font-size: 15px; }
-
-    /* ===== Inputs / errors ===== */
-    input[type="number"], input[type="text"], select { width: 90px; padding: 2px; }
-    .dob-input { width: 110px; }
-    .error-text { color: #c62828; font-size: 12px; display: none; margin-top: 2px; }
-    .hint-text { color: #b71c1c; font-size: 12px; margin-top: 2px; }
-    .invalid { border: 2px solid #c62828 !important; }
-    .abs-input { color: #cc0000; font-weight: bold; } /* show ABS in red */
-
-    /* ===== Buttons/controls ===== */
-    button { padding: 4px 6px; margin: 2px; cursor: pointer; border-radius: 3px; border: none; }
-    .btn-blue { background: #0077cc; color: #fff; }
-    .btn-blue:hover { background: #005fa3; }
-    .btn-red { background: #c62828; color: #fff; }
-    .btn-red:hover { background: #9b1f1f; }
-    .deleteBtn { background: #cc0000; color: #fff; padding: 2px 6px; border-radius: 3px; }
-    .deleteBtn:hover { background: #990000; }
-    .control-label {
-      background: #0077cc; color: #fff; padding: 4px 8px; border-radius: 3px; margin-right: 6px;
-      display: inline-block;
-    }
-    select { background: #e8f0fe; } /* light blue select */
-
-    .hidden-chip {
-      font-size: 12px; color: #b71c1c; font-weight: bold; margin-left: 8px;
-      background: #ffe0e0; border-radius: 3px; padding: 0 6px;
-    }
-
-    /* Modal */
-    #howToUseModal {
-      display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.23); z-index: 1000;
-    }
-    #howToUseContent {
-      background: #e3f2fd; color: #0d2346; margin: 70px auto; padding: 0; border-radius: 8px; max-width: 600px;
-      box-shadow: 0 4px 24px rgba(25,118,210,.13); position: relative; font-size: 15px; max-height: 80vh; overflow-y: auto;
-    }
-    #howToUseContentHeader {
-      background: #1976d2; color: #fff; font-weight: bold; padding: 12px 18px; border-radius: 8px 8px 0 0;
-      font-size: 18px; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center;
-    }
-    #closeHowToUse { color: #fff; background: transparent; font-size: 22px; font-weight: bold; border: none; cursor: pointer; margin-left: 10px; }
-
-    /* Responsive control area */
-    #studentsControls { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-start; }
-    #studentsControls .control-row { display: flex; gap: 8px; flex-wrap: wrap; }
-
-    @media (max-width: 900px) {
-      #studentsControls { flex-direction: column; }
-      #studentsControls .control-row { width: 100%; }
-      #studentsControls select, #studentsControls button { width: 100%; }
-    }
-
-    /* Small red note near grade controls */
-    .grade-note {
-      color: #c62828; font-size: 12px; margin-top: 6px; margin-bottom: 6px;
-    }
+    .grade-note{color:#c62828;font-size:12px;margin-top:6px;margin-bottom:6px;}
+    .subjectLabelRow th{background:#1976d2;color:#fff;text-align:center;font-size:15px;}
   </style>
 </head>
 <body>
 
-  <!-- Inline Add to Home Screen Button -->
-  <div style="display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;">
-    <button id="a2hsBtn" class="btn-red">Add to Home Screen</button>
-  </div>
-
-  <!-- ===== Grade ranges & subject limits ===== -->
+  <!-- Grade ranges & limits -->
   <div class="table-wrapper">
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between;">
       <div class="table-title">Grade Ranges & Subject Limits</div>
       <button id="howToUseBtn" type="button" class="btn-blue">महत्वपूर्ण निर्देश</button>
     </div>
 
-    <!-- Controls -->
     <div style="margin-top:8px;display:flex;flex-direction:column;gap:8px;align-items:flex-start;">
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
         <label for="subjectCodeSelect"><b>Select Subject Code</b></label>
-        <select id="subjectCodeSelect" title="Choose the subject whose limits you are setting">
+        <select id="subjectCodeSelect" title="Choose subject to set limits">
           <option value="" selected>— Select —</option>
           <option value="A">A</option><option value="B">B</option><option value="C">C</option>
           <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          <option value="G">G (Grand Total – auto)</option>
         </select>
 
         <label for="maxMarksInput"><b>Set Maximum Marks</b></label>
@@ -133,50 +81,45 @@
         <input type="number" id="projectMarksInput" value="25" step="1" />
       </div>
 
-      <!-- Red note moved under "Set Project Marks" -->
       <div class="grade-note" id="gradeNoteMoved">
-        <b>नोट –</b> पूर्णांक सेट करने के बाद एक बार ग्रेड को शिक्षा विभाग द्वारा दी गई ग्रेड टेबल से मिलान कर लें।
-        यदि इसमें कोई त्रुटि हो तो यहाँ सही कर लें।
+        <b>नोट –</b> पूर्णांक सेट करने के बाद एक बार ग्रेड को शिक्षा विभाग द्वारा दी गई ग्रेड टेबल से मिलान कर लें। यदि इसमें कोई त्रुटि हो तो यहाँ सही कर लें।
       </div>
     </div>
 
-    <!-- Grade threshold table: From/To are EDITABLE; duplicate-boundary auto-fix is applied -->
     <table id="gradeRangesTable">
       <tr><th>Grade</th><th>From</th><th>To</th><th>From (%)</th><th>To (%)</th></tr>
       <tr><td>A+</td><td><input type="number" class="rangeFrom" data-grade="A+"></td><td><input type="number" class="rangeTo" data-grade="A+"></td><td class="percentFrom">85</td><td class="percentTo">100</td></tr>
-      <tr><td>A</td> <td><input type="number" class="rangeFrom" data-grade="A"></td><td><input type="number" class="rangeTo" data-grade="A"></td><td class="percentFrom">75</td><td class="percentTo">84</td></tr>
-      <tr><td>B</td> <td><input type="number" class="rangeFrom" data-grade="B"></td><td><input type="number" class="rangeTo" data-grade="B"></td><td class="percentFrom">60</td><td class="percentTo">74</td></tr>
-      <tr><td>C</td> <td><input type="number" class="rangeFrom" data-grade="C"></td><td><input type="number" class="rangeTo" data-grade="C"></td><td class="percentFrom">45</td><td class="percentTo">59</td></tr>
-      <tr><td>D</td> <td><input type="number" class="rangeFrom" data-grade="D"></td><td><input type="number" class="rangeTo" data-grade="D"></td><td class="percentFrom">33</td><td class="percentTo">44</td></tr>
+      <tr><td>A</td><td><input type="number" class="rangeFrom" data-grade="A"></td><td><input type="number" class="rangeTo" data-grade="A"></td><td class="percentFrom">75</td><td class="percentTo">84</td></tr>
+      <tr><td>B</td><td><input type="number" class="rangeFrom" data-grade="B"></td><td><input type="number" class="rangeTo" data-grade="B"></td><td class="percentFrom">60</td><td class="percentTo">74</td></tr>
+      <tr><td>C</td><td><input type="number" class="rangeFrom" data-grade="C"></td><td><input type="number" class="rangeTo" data-grade="C"></td><td class="percentFrom">45</td><td class="percentTo">59</td></tr>
+      <tr><td>D</td><td><input type="number" class="rangeFrom" data-grade="D"></td><td><input type="number" class="rangeTo" data-grade="D"></td><td class="percentFrom">33</td><td class="percentTo">44</td></tr>
       <tr><td>E1</td><td><input type="number" class="rangeFrom" data-grade="E1"></td><td><input type="number" class="rangeTo" data-grade="E1"></td><td class="percentFrom">20</td><td class="percentTo">32</td></tr>
-      <tr><td>E2</td><td><input type="number" class="rangeFrom" data-grade="E2"></td><td><input type="number" class="rangeTo" data-grade="E2"></td><td class="percentFrom">0</td> <td class="percentTo">19</td></tr>
+      <tr><td>E2</td><td><input type="number" class="rangeFrom" data-grade="E2"></td><td><input type="number" class="rangeTo" data-grade="E2"></td><td class="percentFrom">0</td><td class="percentTo">19</td></tr>
     </table>
   </div>
 
-  <!-- ===== महत्वपूर्ण निर्देश (How to) ===== -->
-  <div id="howToUseModal">
-    <div id="howToUseContent">
-      <div id="howToUseContentHeader">
+  <!-- महत्वपूर्ण निर्देश Modal -->
+  <div id="howToUseModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.23);z-index:1000;">
+    <div id="howToUseContent" style="background:#e3f2fd;color:#0d2346;margin:70px auto;padding:0;border-radius:8px;max-width:600px;box-shadow:0 4px 24px rgba(25,118,210,.13);position:relative;font-size:15px;max-height:80vh;overflow-y:auto;">
+      <div id="howToUseContentHeader" style="background:#1976d2;color:#fff;font-weight:bold;padding:12px 18px;border-radius:8px 8px 0 0;font-size:18px;letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;">
         महत्वपूर्ण निर्देश
-        <button id="closeHowToUse" title="Close">&times;</button>
+        <button id="closeHowToUse" title="Close" style="color:#fff;background:transparent;font-size:22px;font-weight:bold;border:none;cursor:pointer;margin-left:10px;">&times;</button>
       </div>
       <div id="howToUseDetails" style="padding:18px 24px 18px 32px;">
         <ul>
           <li>पहले <b>Select Subject Code</b> चुनें; फिर <b>Set Maximum Marks</b> और <b>Set Project Marks</b> दर्ज करें।</li>
           <li>जब तक कोई Subject select नहीं होगा, Students Table में उस Subject के Obtained/प्राप्तांक और Project इनपुट बंद रहेंगे।</li>
-          <li>Grand Total = जिन Subjects में इनपुट है उनका योग। Project खाली हो तो केवल MM से % निकलेगा; Project भरा हो तो MM + Project limit से % निकलेगा। 0/00 वैध है; blank नहीं जोड़ा जाएगा।</li>
+          <li>Grand Total = जिन Subjects में इनपुट है उनका योग। Project खाली हो तो केवल MM से % निकलेगा; Project भरा हो तो MM+Project limit से % निकलेगा। 0/00 वैध है; blank नहीं जोड़ा जाएगा।</li>
           <li>ABS लिखने पर छात्र अनुपस्थित माना जाएगा — ग्रेड “– –” दिखेगा और काउंट अलग “ABS Students” तालिका में जोड़ा जाएगा (केवल ग्रेड समरी में)।</li>
-          <li>Print/Export में Gender = M/F, Caste = SC/ST/OBC/GENERAL सही आएगा (खाली हो तो खाली)।</li>
         </ul>
       </div>
     </div>
   </div>
 
-  <!-- ===== Students Table ===== -->
+  <!-- Students Table -->
   <div class="table-wrapper">
     <div class="table-title">Students Table</div>
 
-    <!-- Blue controls; simple Hide/Show only these five fields -->
     <div id="studentsControls">
       <div class="control-row">
         <span class="control-label">Hide Column</span>
@@ -201,31 +144,22 @@
           <th rowspan="2">Gender</th>
           <th rowspan="2">Caste</th>
           <th rowspan="2">DOB</th>
-          <!-- Subject blocks A-F -->
           <th colspan="5" class="subjectLabelRow">Subject A</th>
           <th colspan="5" class="subjectLabelRow">Subject B</th>
           <th colspan="5" class="subjectLabelRow">Subject C</th>
           <th colspan="5" class="subjectLabelRow">Subject D</th>
           <th colspan="5" class="subjectLabelRow">Subject E</th>
           <th colspan="5" class="subjectLabelRow">Subject F</th>
-          <!-- Grand total block -->
           <th colspan="3" class="subjectLabelRow">Grand Total G</th>
           <th rowspan="2">Action</th>
         </tr>
         <tr class="subjectLabelRow">
-          <!-- A -->
           <th>Obtained / प्राप्तांक</th><th>Grade</th><th>%</th><th>Project</th><th>Total</th>
-          <!-- B -->
           <th>Obtained / प्राप्तांक</th><th>Grade</th><th>%</th><th>Project</th><th>Total</th>
-          <!-- C -->
           <th>Obtained / प्राप्तांक</th><th>Grade</th><th>%</th><th>Project</th><th>Total</th>
-          <!-- D -->
           <th>Obtained / प्राप्तांक</th><th>Grade</th><th>%</th><th>Project</th><th>Total</th>
-          <!-- E -->
           <th>Obtained / प्राप्तांक</th><th>Grade</th><th>%</th><th>Project</th><th>Total</th>
-          <!-- F -->
           <th>Obtained / प्राप्तांक</th><th>Grade</th><th>%</th><th>Project</th><th>Total</th>
-          <!-- G -->
           <th>Grand Total</th><th>%</th><th>Grade</th>
         </tr>
       </thead>
@@ -234,7 +168,7 @@
     <button id="addRowBtn" class="btn-blue">+ Add Row</button>
   </div>
 
-  <!-- ===== Summaries (A–G) horizontally scrollable rows ===== -->
+  <!-- Summaries -->
   <div class="table-wrapper">
     <div class="table-title">Grade Summaries (A–G)</div>
     <div id="gradeSummariesRow" style="display:flex;gap:16px;overflow-x:auto;padding:8px;"></div>
@@ -250,7 +184,7 @@
     <div id="casteSummariesRow" style="display:flex;gap:16px;overflow-x:auto;padding:8px;"></div>
   </div>
 
-  <!-- ===== Export & Print ===== -->
+  <!-- Export & Print -->
   <div class="table-wrapper">
     <div class="table-title">Export & Print</div>
     <div id="exportControls" style="padding:8px;">
@@ -267,18 +201,18 @@
     </div>
   </div>
 
-  <!-- ===== How to use Teachers Tool (blank card to fill later) ===== -->
+  <!-- How to use Teachers Tool (blank section) -->
   <div class="table-wrapper">
     <div class="table-title">How to use Teachers Tool</div>
-    <div style="padding:12px; color:#333;">
-      <!-- Leave blank for now; paste your future content here. -->
-      <div style="margin-top:16px; font-size:14px;">
+    <div style="padding:12px;color:#333;">
+      <!-- Keep blank as requested -->
+      <div style="margin-top:16px;font-size:14px;">
         Contact: <a href="mailto:skycommunics@gmail.com">skycommunics@gmail.com</a>
       </div>
     </div>
   </div>
 
-  <!-- ===== XLSX ===== -->
+  <!-- XLSX -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
   <script>
@@ -287,107 +221,78 @@
      ***********************/
     const SUBJECTS = ["A","B","C","D","E","F"];
     const SUBJECTS_PLUS_G = ["A","B","C","D","E","F","G"];
+    const limits = { A:{mm:75,pm:25}, B:{mm:75,pm:25}, C:{mm:75,pm:25}, D:{mm:75,pm:25}, E:{mm:75,pm:25}, F:{mm:75,pm:25} };
 
-    // Per-subject limits (default: MM=75, PM=25; can be blanked later by user)
-    const limits = {
-      A: { mm: 75, pm: 25 },
-      B: { mm: 75, pm: 25 },
-      C: { mm: 75, pm: 25 },
-      D: { mm: 75, pm: 25 },
-      E: { mm: 75, pm: 25 },
-      F: { mm: 75, pm: 25 }
-    };
-
-    /* ===== Add to Home Screen (A2HS) — inline button ===== */
-    let deferredPrompt = null;
-    const a2hsBtn = document.getElementById("a2hsBtn");
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      a2hsBtn.style.display = "inline-block";
-    });
-    a2hsBtn.addEventListener("click", async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        try { await deferredPrompt.userChoice; } catch {}
-        deferredPrompt = null;
-      } else {
-        alert("Your browser may not support automatic shortcuts here.");
-      }
-    });
-
-    // ========= Modal =========
-    document.getElementById("howToUseBtn").onclick = () => { document.getElementById("howToUseModal").style.display="block"; document.body.style.overflow="hidden"; };
-    document.getElementById("closeHowToUse").onclick = () => { document.getElementById("howToUseModal").style.display="none"; document.body.style.overflow=""; };
-    document.getElementById("howToUseModal").onclick = (e) => { if(e.target.id==="howToUseModal"){ e.currentTarget.style.display="none"; document.body.style.overflow=""; } };
+    // Modal
+    document.getElementById("howToUseBtn").onclick=()=>{document.getElementById("howToUseModal").style.display="block";document.body.style.overflow="hidden";};
+    document.getElementById("closeHowToUse").onclick=()=>{document.getElementById("howToUseModal").style.display="none";document.body.style.overflow="";};
+    document.getElementById("howToUseModal").onclick=(e)=>{if(e.target.id==="howToUseModal"){e.currentTarget.style.display="none";document.body.style.overflow="";}};
 
     /*************************
-     * Grade Ranges (percent)
+     * Grade Ranges helpers  *
      *************************/
     function getPercentRanges(){
-      const rows = Array.from(document.querySelectorAll("#gradeRangesTable tr")).slice(1);
-      return rows.map(tr => ({
+      return Array.from(document.querySelectorAll("#gradeRangesTable tr")).slice(1).map(tr=>({
         grade: tr.cells[0].textContent.trim(),
-        from: parseInt(tr.querySelector(".percentFrom").textContent),
-        to: parseInt(tr.querySelector(".percentTo").textContent)
+        from: parseInt(tr.querySelector(".percentFrom").textContent)||0,
+        to: parseInt(tr.querySelector(".percentTo").textContent)||0
       }));
     }
     function gradeFromPercent(p){
-      const ranges = getPercentRanges();
+      const ranges=getPercentRanges();
       for(const r of ranges){ if(p>=r.from && p<=r.to) return r.grade; }
       return "";
     }
-
-    // Compute absolute ranges for the selected subject (or G) from %
-    function fillAbsoluteFromPercent(code){
-      const denom = (code === "G") ? getDisplayGrandDenominator() : (limits[code]?.mm ?? 0);
-      const rows = Array.from(document.querySelectorAll("#gradeRangesTable tr")).slice(1);
-      rows.forEach(tr=>{
-        const pf = parseInt(tr.querySelector(".percentFrom").textContent) || 0;
-        const pt = parseInt(tr.querySelector(".percentTo").textContent) || 0;
-        tr.querySelector(".rangeFrom").value = Math.round((pf * (denom||0)) / 100);
-        tr.querySelector(".rangeTo").value   = Math.round((pt * (denom||0)) / 100);
+    function getDisplayGrandDenominator(){
+      let denom=0; const used=new Set();
+      document.querySelectorAll("#studentsTable tbody tr").forEach(row=>{
+        SUBJECTS.forEach(s=>{
+          const m=row.querySelector(`.marks-${s}`).value;
+          const p=row.querySelector(`.project-${s}`).value;
+          if(m!==""||p!=="") used.add(s);
+        });
       });
+      used.forEach(s=>{
+        const mm=parseFloat(limits[s].mm)||0; const pm=parseFloat(limits[s].pm)||0;
+        denom += mm+pm;
+      });
+      return denom;
     }
-
-    // When From/To edited: update % based on denom and fix duplicates
-    function updatePercentFromAbsolute(code){
-      const denom = (code === "G") ? getDisplayGrandDenominator() : (limits[code]?.mm ?? 0);
-      const rows = Array.from(document.querySelectorAll("#gradeRangesTable tr")).slice(1);
+    function setGradeRangesFromPercent(denom){
+      const rows=Array.from(document.querySelectorAll("#gradeRangesTable tr")).slice(1);
       rows.forEach(tr=>{
-        const rf = parseFloat(tr.querySelector(".rangeFrom").value)||0;
-        const rt = parseFloat(tr.querySelector(".rangeTo").value)||0;
-        tr.querySelector(".percentFrom").textContent = (denom>0) ? Math.round((rf/denom)*100) : 0;
-        tr.querySelector(".percentTo").textContent   = (denom>0) ? Math.round((rt/denom)*100) : 0;
+        const pf=parseInt(tr.querySelector(".percentFrom").textContent)||0;
+        const pt=parseInt(tr.querySelector(".percentTo").textContent)||0;
+        tr.querySelector(".rangeFrom").value=Math.round((pf*(denom||0))/100);
+        tr.querySelector(".rangeTo").value=Math.round((pt*(denom||0))/100);
       });
       fixDuplicateBoundaries();
     }
-
-    // Fix duplicate boundaries: if an upper grade FROM equals the lower grade TO, bump upper FROM by +1
+    function updatePercentFromAbsolute(denom){
+      const rows=Array.from(document.querySelectorAll("#gradeRangesTable tr")).slice(1);
+      rows.forEach(tr=>{
+        const rf=parseFloat(tr.querySelector(".rangeFrom").value)||0;
+        const rt=parseFloat(tr.querySelector(".rangeTo").value)||0;
+        tr.querySelector(".percentFrom").textContent = denom>0 ? Math.round((rf/denom)*100) : 0;
+        tr.querySelector(".percentTo").textContent   = denom>0 ? Math.round((rt/denom)*100) : 0;
+      });
+      fixDuplicateBoundaries();
+    }
     function fixDuplicateBoundaries(){
-      const rows = Array.from(document.querySelectorAll("#gradeRangesTable tr")).slice(1);
-      for(let i=rows.length-1; i>0; i--){
-        const lower = rows[i];
-        const upper = rows[i-1];
-        const lowTo = parseInt(lower.querySelector(".rangeTo").value)||0;
-        const upFrom = parseInt(upper.querySelector(".rangeFrom").value)||0;
-        if(upFrom <= lowTo){
-          upper.querySelector(".rangeFrom").value = lowTo + 1;
-        }
+      const rows=Array.from(document.querySelectorAll("#gradeRangesTable tr")).slice(1);
+      for(let i=rows.length-1;i>0;i--){
+        const low=rows[i]; const up=rows[i-1];
+        const lowTo=parseInt(low.querySelector(".rangeTo").value)||0;
+        const upFrom=parseInt(up.querySelector(".rangeFrom").value)||0;
+        if(upFrom<=lowTo) up.querySelector(".rangeFrom").value = lowTo+1; // bump upper FROM
       }
     }
-
-    function updateAbsoluteRangesFor(code){
-      fillAbsoluteFromPercent(code);
-      fixDuplicateBoundaries();
-    }
-
-    // Listen to From/To edits
     function attachGradeRangeEditors(){
       document.querySelectorAll(".rangeFrom,.rangeTo").forEach(inp=>{
         inp.addEventListener("input", ()=>{
-          const code = document.getElementById("subjectCodeSelect").value || "G";
-          updatePercentFromAbsolute(code);
+          const code=document.getElementById("subjectCodeSelect").value;
+          const denom = code==="G" ? getDisplayGrandDenominator() : (limits[code]?.mm || 0);
+          updatePercentFromAbsolute(denom);
         });
       });
     }
@@ -395,127 +300,106 @@
     /*********************************
      * Subject limit controls (top)  *
      *********************************/
-    const subjectSelect = document.getElementById("subjectCodeSelect");
-    const maxMarksInput = document.getElementById("maxMarksInput");
-    const projectMarksInput = document.getElementById("projectMarksInput");
+    const subjectSelect=document.getElementById("subjectCodeSelect");
+    const maxMarksInput=document.getElementById("maxMarksInput");
+    const projectMarksInput=document.getElementById("projectMarksInput");
 
     function applySubjectSelectionUI(){
-      const code = subjectSelect.value;
-      if(!code){
-        maxMarksInput.value = "";
-        projectMarksInput.value = "";
-      } else if(code!=="G"){
-        maxMarksInput.value = limits[code].mm ?? "";
-        projectMarksInput.value = limits[code].pm ?? "";
-      }
+      const code=subjectSelect.value;
+      if(!code){ maxMarksInput.value=""; projectMarksInput.value=""; }
+      else if(code!=="G"){ maxMarksInput.value=limits[code].mm??""; projectMarksInput.value=limits[code].pm??""; }
       toggleSubjectInputsEnabled(code);
-      updateAbsoluteRangesFor(code || "G");
+      const denom = code==="G" ? getDisplayGrandDenominator() : (limits[code]?.mm || 0);
+      setGradeRangesFromPercent(denom);
       updateAllRows();
       saveAll();
     }
-
-    // Enable only selected subject fields; others disabled
     function toggleSubjectInputsEnabled(selectedCode){
       document.querySelectorAll("#studentsTable tbody tr").forEach(row=>{
         SUBJECTS.forEach(s=>{
-          const m = row.querySelector(`.marks-${s}`);
-          const p = row.querySelector(`.project-${s}`);
-          const disabled = !selectedCode || selectedCode !== s;
-          m.disabled = disabled; p.disabled = disabled;
-          m.dataset.locked = disabled ? "1" : "0";
-          p.dataset.locked = disabled ? "1" : "0";
+          const m=row.querySelector(`.marks-${s}`);
+          const p=row.querySelector(`.project-${s}`);
+          const disabled=!selectedCode || selectedCode!==s;
+          m.disabled=disabled; p.disabled=disabled;
+          m.dataset.locked=disabled?"1":"0";
+          p.dataset.locked=disabled?"1":"0";
         });
       });
     }
-
     subjectSelect.addEventListener("change", applySubjectSelectionUI);
-
     maxMarksInput.addEventListener("input", ()=>{
-      const code = subjectSelect.value;
-      if(!code || code==="G"){ updateAbsoluteRangesFor(code||"G"); updateAllRows(); return; }
-      const v = (maxMarksInput.value === "") ? "" : parseFloat(maxMarksInput.value);
-      limits[code].mm = (v==="" || Number.isNaN(v)) ? "" : v;
-      updateAbsoluteRangesFor(code);
+      const code=subjectSelect.value;
+      if(!code || code==="G"){ setGradeRangesFromPercent(getDisplayGrandDenominator()); updateAllRows(); return; }
+      const v=(maxMarksInput.value==="")?"":parseFloat(maxMarksInput.value);
+      limits[code].mm=(v===""||Number.isNaN(v))?"":v;
+      setGradeRangesFromPercent(limits[code].mm||0);
       updateAllRows(); saveAll();
     });
-
     projectMarksInput.addEventListener("input", ()=>{
-      const code = subjectSelect.value;
-      if(!code || code==="G"){ updateAbsoluteRangesFor(code||"G"); updateAllRows(); return; }
-      const v = (projectMarksInput.value === "") ? "" : parseFloat(projectMarksInput.value);
-      limits[code].pm = (v==="" || Number.isNaN(v)) ? "" : v;
-      updateAbsoluteRangesFor(code);
+      const code=subjectSelect.value;
+      if(!code || code==="G"){ setGradeRangesFromPercent(getDisplayGrandDenominator()); updateAllRows(); return; }
+      const v=(projectMarksInput.value==="")?"":parseFloat(projectMarksInput.value);
+      limits[code].pm=(v===""||Number.isNaN(v))?"":v;
+      setGradeRangesFromPercent(limits[code].mm||0);
       updateAllRows(); saveAll();
     });
 
     /*********************************
-     * Hide / Show (only 5 fields)   *
+     * Hide / Show basic fields      *
      *********************************/
-    let hiddenColumns = []; // store indices hidden
-    const FIELD_TO_INDEX = { "Roll No":1, "Name":2, "Gender":3, "Caste":4, "DOB":5 };
+    let hiddenColumns=[];
+    const FIELD_TO_INDEX={"Roll No":1,"Name":2,"Gender":3,"Caste":4,"DOB":5};
     function updateHideShowSelects(){
-      const hideSel = document.getElementById('hideColumnSelect');
-      const showSel = document.getElementById('showColumnSelect');
-      hideSel.innerHTML = ""; showSel.innerHTML = "";
-
-      const addOpt = (sel, text, val, dis=false, selct=false)=>{
-        const o=document.createElement('option'); o.textContent=text; o.value=val;
-        if(dis) o.disabled=true; if(selct) o.selected=true; sel.appendChild(o);
-      };
-
+      const hideSel=document.getElementById('hideColumnSelect');
+      const showSel=document.getElementById('showColumnSelect');
+      hideSel.innerHTML=""; showSel.innerHTML="";
+      function addOpt(sel,t,v,dis=false,selct=false){const o=document.createElement('option');o.textContent=t;o.value=v;if(dis)o.disabled=true;if(selct)o.selected=true;sel.appendChild(o);}
       addOpt(hideSel,"Select","",true,true);
       Object.keys(FIELD_TO_INDEX).forEach(label=>{
-        const idx = FIELD_TO_INDEX[label];
+        const idx=FIELD_TO_INDEX[label];
         if(!hiddenColumns.includes(idx)) addOpt(hideSel,label,idx);
       });
       addOpt(showSel,"Select","",true,true);
       hiddenColumns.forEach(idx=>{
-        const label = Object.keys(FIELD_TO_INDEX).find(k => FIELD_TO_INDEX[k]===idx);
+        const label=Object.keys(FIELD_TO_INDEX).find(k=>FIELD_TO_INDEX[k]===idx);
         if(label) addOpt(showSel,label,idx);
       });
-
       if(hideSel.options.length===1) addOpt(hideSel,"No column to hide","",true);
       if(showSel.options.length===1) addOpt(showSel,"No column to show","",true);
     }
     function refreshHiddenIndicator(){
-      const el = document.getElementById('hiddenColumnsIndicator');
-      if(hiddenColumns.length===0){ el.innerHTML=""; return; }
+      const el=document.getElementById('hiddenColumnsIndicator');
+      if(hiddenColumns.length===0){el.innerHTML="";return;}
       hiddenColumns.sort((a,b)=>a-b);
-      const labels = hiddenColumns.map(idx => Object.keys(FIELD_TO_INDEX).find(k=>FIELD_TO_INDEX[k]===idx));
-      el.innerHTML = "Hidden: " + labels.map(n=>`<span class="hidden-chip">${n}</span>`).join("");
+      const labels=hiddenColumns.map(idx=>Object.keys(FIELD_TO_INDEX).find(k=>FIELD_TO_INDEX[k]===idx));
+      el.innerHTML="Hidden: "+labels.map(n=>`<span class="hidden-chip">${n}</span>`).join("");
     }
     function hideIndices(idxs){
-      const theadRows = document.querySelectorAll("#studentsTable thead tr");
-      const bodyRows = document.querySelectorAll("#studentsTable tbody tr");
+      const thTop=document.querySelectorAll("#studentsTable thead tr");
+      const rows=document.querySelectorAll("#studentsTable tbody tr");
       idxs.forEach(idx=>{
-        theadRows.forEach(tr=>{ if(tr.cells[idx]) tr.cells[idx].style.display="none"; });
-        bodyRows.forEach(tr=>{ if(tr.cells[idx]) tr.cells[idx].style.display="none"; });
+        thTop.forEach(tr=>{if(tr.cells[idx]) tr.cells[idx].style.display="none";});
+        rows.forEach(tr=>{if(tr.cells[idx]) tr.cells[idx].style.display="none";});
         if(!hiddenColumns.includes(idx)) hiddenColumns.push(idx);
       });
-      hiddenColumns = Array.from(new Set(hiddenColumns));
+      hiddenColumns=[...new Set(hiddenColumns)];
       updateHideShowSelects(); refreshHiddenIndicator();
     }
     function showIndices(idxs){
-      const theadRows = document.querySelectorAll("#studentsTable thead tr");
-      const bodyRows = document.querySelectorAll("#studentsTable tbody tr");
+      const thTop=document.querySelectorAll("#studentsTable thead tr");
+      const rows=document.querySelectorAll("#studentsTable tbody tr");
       idxs.forEach(idx=>{
-        theadRows.forEach(tr=>{ if(tr.cells[idx]) tr.cells[idx].style.display=""; });
-        bodyRows.forEach(tr=>{ if(tr.cells[idx]) tr.cells[idx].style.display=""; });
-        hiddenColumns = hiddenColumns.filter(i=>i!==idx);
+        thTop.forEach(tr=>{if(tr.cells[idx]) tr.cells[idx].style.display="";});
+        rows.forEach(tr=>{if(tr.cells[idx]) tr.cells[idx].style.display="";});
+        hiddenColumns=hiddenColumns.filter(i=>i!==idx);
       });
       updateHideShowSelects(); refreshHiddenIndicator();
     }
-    document.getElementById("hideColumnSelect").addEventListener("change", function(){
-      const idx = parseInt(this.value);
-      if(isNaN(idx)) return;
-      hideIndices([idx]);
-      this.selectedIndex = 0;
+    document.getElementById("hideColumnSelect").addEventListener("change",function(){
+      const idx=parseInt(this.value); if(isNaN(idx)) return; hideIndices([idx]); this.selectedIndex=0;
     });
-    document.getElementById("showColumnSelect").addEventListener("change", function(){
-      const idx = parseInt(this.value);
-      if(isNaN(idx)) return;
-      showIndices([idx]);
-      this.selectedIndex = 0;
+    document.getElementById("showColumnSelect").addEventListener("change",function(){
+      const idx=parseInt(this.value); if(isNaN(idx)) return; showIndices([idx]); this.selectedIndex=0;
     });
 
     /***********************
@@ -524,52 +408,65 @@
     function saveAll(){
       const students=[];
       document.querySelectorAll("#studentsTable tbody tr").forEach(row=>{
-        const rec = {
-          roll: row.querySelector(".roll")?.value || "",
-          name: row.querySelector(".name")?.value || "",
-          gender: row.querySelector(".gender")?.value || "",
-          caste: row.querySelector(".caste")?.value || "",
-          dob: row.querySelector(".dob-input")?.value || ""
-        };
+        const rec={ roll:row.querySelector(".roll")?.value||"", name:row.querySelector(".name")?.value||"", gender:(row.querySelector(".gender")?.value||"").toUpperCase(), caste:(row.querySelector(".caste")?.value||"").toUpperCase(), dob:row.querySelector(".dob-input")?.value||"" };
         SUBJECTS.forEach(s=>{
-          rec[`obt_${s}`] = row.querySelector(`.marks-${s}`)?.value || "";
-          rec[`proj_${s}`] = row.querySelector(`.project-${s}`)?.value || "";
+          rec[`obt_${s}`]=row.querySelector(`.marks-${s}`)?.value||"";
+          rec[`proj_${s}`]=row.querySelector(`.project-${s}`)?.value||"";
         });
         students.push(rec);
       });
-      const data = { limits, students };
-      localStorage.setItem("students_v6", JSON.stringify(data));
+      localStorage.setItem("students_v7", JSON.stringify({limits,students}));
     }
     function loadAll(){
-      try{
-        const raw = localStorage.getItem("students_v6");
-        return raw ? JSON.parse(raw) : null;
-      }catch{ return null; }
+      try{const raw=localStorage.getItem("students_v7");return raw?JSON.parse(raw):null;}catch{return null;}
     }
 
     /***********************
-     * Row building / logic
+     * Helpers             *
      ***********************/
     function errorShow(el,msg){ if(!el) return; el.style.display="block"; el.textContent=msg; }
     function errorHide(el){ if(!el) return; el.style.display="none"; }
-    function toABSIfNeeded(input){
-      const v = input.value.trim().toUpperCase();
-      if (v === "ABS" || v === "A") { // A → ABS auto
-        input.value = "ABS";
-        input.classList.add("abs-input");
-        return true;
-      } else {
-        input.classList.remove("abs-input");
-        return false;
+    function normUpper(s){ return (s||"").toUpperCase(); }
+    function isABS(inputEl){ return (inputEl && inputEl.value.trim().toUpperCase()==="ABS"); }
+
+    // Two-character rule for Obtained/Project:
+    // - allow letters (for A -> ABS) and digits
+    // - if starts with A/a => convert to "ABS" (3 chars allowed)
+    // - else restrict to max two characters [0-9A-Za-z], but we’ll only keep first two
+    function enforceTwoCharOrABS(el){
+      let v=el.value;
+      if(!v) return;
+      if(/^a$/i.test(v) || /^ab$/i.test(v) || /^abs$/i.test(v)){
+        el.value="ABS";
+        el.classList.add("abs-input");
+        return;
+      }
+      el.classList.remove("abs-input");
+      // keep only letters/digits
+      v = v.replace(/[^0-9a-z]/gi,"");
+      // if more than 2 chars (and not ABS), cut to 2
+      if(v.length>2) v = v.slice(0,2);
+      el.value = v;
+    }
+    function padOneDigitOnBlur(el){
+      const v=el.value.trim().toUpperCase();
+      if(v==="" || v==="ABS") return;
+      if(/^\d$/.test(v)){ el.value = "0"+v; }
+    }
+    function autoMoveToNextRowSameField(currentInput, selector){
+      // Move to same column of next row
+      const row=currentInput.closest("tr");
+      const rows=Array.from(document.querySelectorAll("#studentsTable tbody tr"));
+      const idx=rows.indexOf(row);
+      if(idx<rows.length-1){
+        const next=rows[idx+1].querySelector(selector);
+        if(next && !next.disabled) next.focus();
       }
     }
-    function twoDigitPad(input){
-      const v = input.value.trim().toUpperCase();
-      if (v === "" || v === "ABS") return;
-      if (/^\d$/.test(v)) { input.value = ("0" + v); }
-    }
-    function normUpper(str){ return (str||"").toUpperCase(); }
 
+    /***********************
+     * Build Row           *
+     ***********************/
     function addRow(rollNo){
       const tbody=document.querySelector("#studentsTable tbody");
       const row=document.createElement("tr");
@@ -620,288 +517,194 @@
 
       row.querySelector(".deleteBtn").addEventListener("click",()=>{ row.remove(); updateSerials(); updateAllRows(); saveAll(); });
 
-      // First row: show small hints for gender & caste & obtained ABS tip
-      if (serial === 1) {
-        row.querySelector(".gender-hint").style.display = "block";
-        row.querySelector(".caste-hint").style.display = "block";
+      // first row hints
+      if(serial===1){
+        row.querySelector(".gender-hint").style.display="block";
+        row.querySelector(".caste-hint").style.display="block";
         SUBJECTS.forEach(s=>{
-          const cell = row.querySelector(`.marks-${s}`).parentElement;
-          const hint = document.createElement("div");
-          hint.className = "hint-text";
-          hint.textContent = "Absent के लिये 'A' टाइप करें";
+          const cell=row.querySelector(`.marks-${s}`).parentElement;
+          const hint=document.createElement("div");
+          hint.className="hint-text";
+          hint.textContent="Absent के लिये 'A' टाइप करें";
           cell.appendChild(hint);
         });
       }
 
-      // Basic fields
+      // Basic inputs
       row.querySelector(".roll").addEventListener("input", ()=>{ updateAllRows(); saveAll(); });
       row.querySelector(".name").addEventListener("input", ()=>{ updateAllRows(); saveAll(); });
 
-      // GENDER input -> only M or F (auto uppercase)
-      const gEl = row.querySelector(".gender");
-      const gErr = row.querySelector(".gender-error");
+      // Gender
+      const gEl=row.querySelector(".gender"), gErr=row.querySelector(".gender-error");
       gEl.addEventListener("input", ()=>{
-        gEl.value = normUpper(gEl.value);
-        const val = gEl.value.trim();
-        if (val==="" || val==="M" || val==="F") { gEl.classList.remove("invalid"); errorHide(gErr); }
+        gEl.value=normUpper(gEl.value);
+        const v=gEl.value.trim();
+        if(v==="" || v==="M" || v==="F"){ gEl.classList.remove("invalid"); errorHide(gErr); }
         else { gEl.classList.add("invalid"); errorShow(gErr,"कृपया M या F टाइप करें"); }
         updateAllRows(); saveAll();
       });
 
-      // CASTE input -> SC, ST, OBC, GENERAL (auto uppercase)
-      const cEl = row.querySelector(".caste");
-      const cErr = row.querySelector(".caste-error");
+      // Caste
+      const cEl=row.querySelector(".caste"), cErr=row.querySelector(".caste-error");
       cEl.addEventListener("input", ()=>{
-        cEl.value = normUpper(cEl.value);
-        const val = cEl.value.trim();
-        if (["","SC","ST","OBC","GENERAL"].includes(val)) { cEl.classList.remove("invalid"); errorHide(cErr); }
+        cEl.value=normUpper(cEl.value);
+        const v=cEl.value.trim();
+        if(["","SC","ST","OBC","GENERAL"].includes(v)){ cEl.classList.remove("invalid"); errorHide(cErr); }
         else { cEl.classList.add("invalid"); errorShow(cErr,"कृपया SC, ST, OBC, GENERAL टाइप करें"); }
         updateAllRows(); saveAll();
       });
 
-      // DOB format/validation
-      const dob = row.querySelector(".dob-input");
-      const dobErr = row.querySelector(".dob-error");
+      // DOB
+      const dob=row.querySelector(".dob-input"), dobErr=row.querySelector(".dob-error");
       dob.addEventListener("input", ()=>{
-        let v = dob.value.replace(/[^\d]/g,"");
-        if(v.length>2) v = v.slice(0,2)+"/"+v.slice(2);
-        if(v.length>5) v = v.slice(0,5)+"/"+v.slice(5);
-        dob.value = v.slice(0,10);
-        let parts = dob.value.split("/");
-        let invalid=false;
+        let v=dob.value.replace(/[^\d]/g,"");
+        if(v.length>2) v=v.slice(0,2)+"/"+v.slice(2);
+        if(v.length>5) v=v.slice(0,5)+"/"+v.slice(5);
+        dob.value=v.slice(0,10);
+        let parts=dob.value.split("/"); let invalid=false;
         if(parts.length===3 && parts.every(p=>p!=="")){
-          let d=parseInt(parts[0]), m=parseInt(parts[1]), y=parseInt(parts[2]);
+          let d=parseInt(parts[0]),m=parseInt(parts[1]),y=parseInt(parts[2]);
           let dateObj=new Date(y,m-1,d);
-          if(isNaN(dateObj.getTime()) || d<1 || m<1 || m>12 || y<1900 || y>2100 ||
-            dateObj.getDate()!=d || dateObj.getMonth()!=m-1 || dateObj.getFullYear()!=y) invalid=true;
+          if(isNaN(dateObj.getTime())||d<1||m<1||m>12||y<1900||y>2100||dateObj.getDate()!=d||dateObj.getMonth()!=m-1||dateObj.getFullYear()!=y) invalid=true;
         }
         if(invalid){ dob.classList.add("invalid"); errorShow(dobErr,"Invalid Date"); }
         else { dob.classList.remove("invalid"); errorHide(dobErr); }
         updateAllRows(); saveAll();
       });
 
-      // Subject inputs
+      // Subject inputs (two-char rule + ABS + auto-move)
       SUBJECTS.forEach(s=>{
-        const m = row.querySelector(`.marks-${s}`);
-        const p = row.querySelector(`.project-${s}`);
-        const me = row.querySelector(`.marks-${s}-err`);
-        const pe = row.querySelector(`.project-${s}-err`);
+        const m=row.querySelector(`.marks-${s}`);
+        const p=row.querySelector(`.project-${s}`);
+        const me=row.querySelector(`.marks-${s}-err`);
+        const pe=row.querySelector(`.project-${s}-err`);
 
-        const requireSelectedSubject = (el, errEl)=>{
-          const selected = subjectSelect.value;
-          if(!selected){ errorShow(errEl, "Select subject (A–F) first."); return true; }
-          if(selected !== s){ errorShow(errEl, `Select subject ${s} first.`); return true; }
+        const requireSelected=(el,errEl)=>{
+          const sel=subjectSelect.value;
+          if(!sel){ errorShow(errEl,"Select subject (A–F) first."); return true; }
+          if(sel!==s){ errorShow(errEl,`Select subject ${s} first.`); return true; }
           errorHide(errEl); return false;
         };
 
-        m.addEventListener("focus", ()=>{
-          if(m.dataset.locked==="1"){ requireSelectedSubject(m, me); m.blur(); }
-        });
-        p.addEventListener("focus", ()=>{
-          if(p.dataset.locked==="1"){ requireSelectedSubject(p, pe); p.blur(); }
-        });
+        m.addEventListener("focus",()=>{ if(m.dataset.locked==="1"){ requireSelected(m,me); m.blur(); } });
+        p.addEventListener("focus",()=>{ if(p.dataset.locked==="1"){ requireSelected(p,pe); p.blur(); } });
 
         m.addEventListener("input", ()=>{
-          if(m.dataset.locked==="1"){ requireSelectedSubject(m, me); m.value=""; return; }
-          toABSIfNeeded(m);
-          if(limits[s].mm==="" || limits[s].pm===""){
-            if (m.value.toUpperCase()!=="ABS") errorShow(me, "Please set Maximum Marks and Project Marks first");
-          } else { errorHide(me); }
-          validateSubjectInputs(row, s);
+          if(m.dataset.locked==="1"){ if(requireSelected(m,me)){ m.value=""; return; } }
+          errorHide(me); // no visible errors requested
+          enforceTwoCharOrABS(m);
+          // auto move when two digits (not ABS)
+          const v=m.value.toUpperCase();
+          if(v.length===2 && v!=="AB" && v!=="ABS"){ autoMoveToNextRowSameField(m,`.marks-${s}`); }
           updateAllRows(); saveAll();
         });
-        m.addEventListener("blur", ()=>{ if(m.value.toUpperCase()!=="ABS") twoDigitPad(m); });
+        m.addEventListener("blur", ()=>{ padOneDigitOnBlur(m); updateAllRows(); saveAll(); });
 
         p.addEventListener("input", ()=>{
-          if(p.dataset.locked==="1"){ requireSelectedSubject(p, pe); p.value=""; return; }
-          toABSIfNeeded(p);
-          if(limits[s].mm==="" || limits[s].pm===""){
-            if (p.value.toUpperCase()!=="ABS") errorShow(pe, "Please set Maximum Marks and Project Marks first");
-          } else { errorHide(pe); }
-          validateSubjectInputs(row, s);
+          if(p.dataset.locked==="1"){ if(requireSelected(p,pe)){ p.value=""; return; } }
+          errorHide(pe);
+          enforceTwoCharOrABS(p);
+          const v=p.value.toUpperCase();
+          if(v.length===2 && v!=="AB" && v!=="ABS"){ autoMoveToNextRowSameField(p,`.project-${s}`); }
           updateAllRows(); saveAll();
         });
-        p.addEventListener("blur", ()=>{ if(p.value.toUpperCase()!=="ABS") twoDigitPad(p); });
+        p.addEventListener("blur", ()=>{ padOneDigitOnBlur(p); updateAllRows(); saveAll(); });
       });
 
-      // honor hidden columns for new row
+      // respect hidden columns for new row
       hiddenColumns.forEach(idx=>{ if(row.cells[idx]) row.cells[idx].style.display="none"; });
 
       return row;
     }
 
-    function updateSerials(){
-      document.querySelectorAll("#studentsTable tbody tr").forEach((r,i)=>{ r.cells[0].textContent = i+1; });
-    }
+    function updateSerials(){ document.querySelectorAll("#studentsTable tbody tr").forEach((r,i)=>{ r.cells[0].textContent=i+1; }); }
 
-    function isABS(inputEl){
-      return (inputEl && inputEl.value.trim().toUpperCase() === "ABS");
-    }
-
-    function validateSubjectInputs(row, code){
-      const mm = limits[code].mm, pm = limits[code].pm;
-      const m = row.querySelector(`.marks-${code}`);
-      const p = row.querySelector(`.project-${code}`);
-      const me = row.querySelector(`.marks-${code}-err`);
-      const pe = row.querySelector(`.project-${code}-err`);
-
-      if (isABS(m) || isABS(p)) { // ABS → no numeric validation needed
-        m.classList.remove("invalid"); p.classList.remove("invalid");
-        errorHide(me); errorHide(pe);
-        return;
-      }
-
-      const mv = parseFloat(m.value);
-      const pv = parseFloat(p.value);
-
-      // Need limits first
-      if(mm==="" || pm===""){
-        if(m.value!=="") errorShow(me,"Please set Maximum Marks and Project Marks first");
-        if(p.value!=="") errorShow(pe,"Please set Maximum Marks and Project Marks first");
-        return;
-      }
-      // Obtained validation
-      if(!Number.isNaN(mv) && mv > mm){ m.classList.add("invalid"); errorShow(me,`Obtained Marks should not exceed ${mm}`); }
-      else { m.classList.remove("invalid"); errorHide(me); }
-      // Project validation
-      if(!Number.isNaN(pv) && pv > pm){ p.classList.add("invalid"); errorShow(pe,`Project Marks should not exceed ${pm}`); }
-      else { p.classList.remove("invalid"); errorHide(pe); }
-    }
-
-    // Compute per-row: subject totals and GRAND TOTAL logic with ABS handling
+    // compute rows
     function updateAllRows(){
       document.querySelectorAll("#studentsTable tbody tr").forEach(row=>{
-        let grandNumerator = 0;
-        let grandDenominator = 0;
-        let anyInput = false;
-        let anyABS = false;
+        let grandNum=0, grandDen=0, anyInput=false, anyABS=false;
 
         SUBJECTS.forEach(s=>{
-          const mm = limits[s].mm, pm = limits[s].pm;
-          const mEl = row.querySelector(`.marks-${s}`);
-          const pEl = row.querySelector(`.project-${s}`);
-          const tEl = row.querySelector(`.total-${s}`);
-          const gradeEl = row.querySelector(`.grade-${s}`);
-          const pctEl = row.querySelector(`.percent-${s}`);
+          const mm=limits[s].mm, pm=limits[s].pm;
+          const mEl=row.querySelector(`.marks-${s}`);
+          const pEl=row.querySelector(`.project-${s}`);
+          const tEl=row.querySelector(`.total-${s}`);
+          const gEl=row.querySelector(`.grade-${s}`);
+          const pcEl=row.querySelector(`.percent-${s}`);
 
-          const mABS = isABS(mEl);
-          const pABS = isABS(pEl);
-          const mv = (mEl.value!=="" && !mABS) ? parseFloat(mEl.value) : NaN;
-          const pv = (pEl.value!=="" && !pABS) ? parseFloat(pEl.value) : NaN;
+          const mABS=isABS(mEl), pABS=isABS(pEl);
+          const mv=(mEl.value!=="" && !mABS)?parseFloat(mEl.value):NaN;
+          const pv=(pEl.value!=="" && !pABS)?parseFloat(pEl.value):NaN;
 
-          // Any input entered?
-          const thisAnyInput = (mEl.value!=="" || pEl.value!=="");
-          if (thisAnyInput) anyInput = true;
+          const anySubInput=(mEl.value!==""||pEl.value!=="");
+          if(anySubInput) anyInput=true;
 
-          // If ABS in either field → mark subject ABS; don't contribute to grand totals
-          if (mABS || pABS) {
-            tEl.value = "ABS";
-            tEl.classList.add("abs-input");
-            gradeEl.textContent = "–";
-            pctEl.textContent = "";
-            anyABS = true;
-            return; // skip adding to grand totals
-          } else {
-            tEl.classList.remove("abs-input");
-          }
+          if(mABS||pABS){
+            tEl.value="ABS"; tEl.classList.add("abs-input"); gEl.textContent="–"; pcEl.textContent=""; anyABS=true;
+            return; // skip GT accumulation for ABS subjects
+          } else { tEl.classList.remove("abs-input"); }
 
-          // subject total (only show if any input present)
-          let subTotal = 0;
-          if(!Number.isNaN(mv)) subTotal += mv;
-          if(!Number.isNaN(pv)) subTotal += pv;
-          tEl.value = (mEl.value!=="" || pEl.value!=="") ? (("" + subTotal)) : "";
+          // subject total
+          let subTot=0;
+          if(!Number.isNaN(mv)) subTot+=mv;
+          if(!Number.isNaN(pv)) subTot+=pv;
+          tEl.value = anySubInput ? (""+subTot) : "";
 
-          // subject grade/% (from Obtained vs MM only)
-          if(!Number.isNaN(mv) && mm!=="" && mm>0){
-            const pct = (mv/mm)*100;
-            pctEl.textContent = pct.toFixed(2);
-            gradeEl.textContent = gradeFromPercent(pct);
-          } else {
-            pctEl.textContent = "";
-            gradeEl.textContent = "";
-          }
+          // subject grade (based on obtained vs MM)
+          if(!Number.isNaN(mv) && mm!="" && mm>0){
+            const pct=(mv/mm)*100; pcEl.textContent=pct.toFixed(2); gEl.textContent=gradeFromPercent(pct);
+          } else { pcEl.textContent=""; gEl.textContent=""; }
 
-          // GRAND TOTAL pieces (ABS subjects already skipped):
-          if(thisAnyInput){
-            const mmVal = (mm==="" || Number.isNaN(parseFloat(mm))) ? 0 : parseFloat(mm);
-            const pmVal = (pm==="" || Number.isNaN(parseFloat(pm))) ? 0 : parseFloat(pm);
-            grandNumerator += (!Number.isNaN(mv) ? mv : 0) + (!Number.isNaN(pv) ? pv : 0);
-            if(pEl.value!==""){ grandDenominator += (mmVal + pmVal); }
-            else { grandDenominator += mmVal; }
+          // grand total contributions
+          if(anySubInput){
+            const mmVal=(mm===""?0:parseFloat(mm)||0);
+            const pmVal=(pm===""?0:parseFloat(pm)||0);
+            grandNum += (!Number.isNaN(mv)?mv:0) + (!Number.isNaN(pv)?pv:0);
+            if(pEl.value!==""){ grandDen += (mmVal+pmVal); }
+            else { grandDen += mmVal; }
           }
         });
 
         // render G
-        const gTot = row.querySelector(".grand-total");
-        const gPct = row.querySelector(".grand-percent");
-        const gGrd = row.querySelector(".grand-grade");
-
-        if (!anyInput) {
-          gTot.textContent = ""; gPct.textContent = ""; gGrd.textContent = "";
-        } else {
-          gTot.textContent = grandNumerator;
-          if(grandDenominator>0){
-            const gp = (grandNumerator / grandDenominator) * 100;
-            gPct.textContent = gp.toFixed(2);
-          } else {
-            gPct.textContent = "";
-          }
-          // If any ABS present in this row, grade must be "--"
-          gGrd.textContent = anyABS ? "--" : gradeFromPercent(parseFloat(gPct.textContent)||0);
+        const gTot=row.querySelector(".grand-total");
+        const gPct=row.querySelector(".grand-percent");
+        const gGrade=row.querySelector(".grand-grade");
+        if(!anyInput){ gTot.textContent=""; gPct.textContent=""; gGrade.textContent=""; }
+        else{
+          gTot.textContent=grandNum;
+          if(grandDen>0){ const pct=(grandNum/grandDen)*100; gPct.textContent=pct.toFixed(2); }
+          else { gPct.textContent=""; }
+          gGrade.textContent = anyABS ? "--" : gradeFromPercent(parseFloat(gPct.textContent)||0);
         }
       });
 
       updateAllSummaries();
     }
 
-    // For grade table absolute From/To when "G" is selected (display only)
-    function getDisplayGrandDenominator(){
-      let denom = 0;
-      const anyInputSubject = new Set();
-      document.querySelectorAll("#studentsTable tbody tr").forEach(row=>{
-        SUBJECTS.forEach(s=>{
-          const m = row.querySelector(`.marks-${s}`).value;
-          const p = row.querySelector(`.project-${s}`).value;
-          if(m!=="" || p!=="") anyInputSubject.add(s);
-        });
-      });
-      anyInputSubject.forEach(s=>{
-        const mm = (limits[s].mm==="" ? 0 : parseFloat(limits[s].mm)||0);
-        const pm = (limits[s].pm==="" ? 0 : parseFloat(limits[s].pm)||0);
-        denom += (mm + pm);
-      });
-      return denom;
-    }
-
     /***********************
-     * Summaries A–G       *
+     * Summaries           *
      ***********************/
     function createSummaryTables(){
-      const gradeRow = document.getElementById("gradeSummariesRow");
-      const genderRow = document.getElementById("genderSummariesRow");
-      const casteRow = document.getElementById("casteSummariesRow");
+      const gradeRow=document.getElementById("gradeSummariesRow");
+      const genderRow=document.getElementById("genderSummariesRow");
+      const casteRow=document.getElementById("casteSummariesRow");
       gradeRow.innerHTML=""; genderRow.innerHTML=""; casteRow.innerHTML="";
 
       SUBJECTS_PLUS_G.forEach(code=>{
-        // Grade Summary + ABS table below it
-        gradeRow.appendChild(buildSummaryCard(`Grade Summary – ${code}`, `grade_${code}`, `
+        gradeRow.appendChild(buildSummaryCard(`Grade Summary – ${code}`,`grade_${code}`,`
           <thead><tr><th>Grade</th><th>Count</th></tr></thead>
           <tbody></tbody>
           <tfoot><tr><th>Total</th><th class="total">-</th></tr></tfoot>
-        `, true /* includeABS */));
-
-        // Gender-wise (no ABS table)
-        genderRow.appendChild(buildSummaryCard(`Gender-wise – ${code}`, `gender_${code}`, `
+        `,true));
+        genderRow.appendChild(buildSummaryCard(`Gender-wise – ${code}`,`gender_${code}`,`
           <thead><tr><th>Gender</th><th>A+</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E1</th><th>E2</th><th>Total</th></tr></thead>
           <tbody>
             <tr><td>M</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
             <tr><td>F</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
           </tbody>
           <tfoot><tr><td>Total</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr></tfoot>
-        `, false));
-
-        // Caste-wise (no ABS table)
-        casteRow.appendChild(buildSummaryCard(`Caste-wise – ${code}`, `caste_${code}`, `
+        `,false));
+        casteRow.appendChild(buildSummaryCard(`Caste-wise – ${code}`,`caste_${code}`,`
           <thead><tr><th>Caste</th><th>A+</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E1</th><th>E2</th><th>Total</th></tr></thead>
           <tbody>
             <tr><td>SC</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
@@ -910,39 +713,26 @@
             <tr><td>GENERAL</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
           </tbody>
           <tfoot><tr><td>Total</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr></tfoot>
-        `, false));
+        `,false));
       });
     }
-    function buildSummaryCard(title,id,innerTableHtml, includeABS){
-      const card=document.createElement('div');
-      card.style.minWidth="360px"; card.style.flex="0 0 auto";
+    function buildSummaryCard(title,id,innerTableHtml,includeABS){
+      const card=document.createElement('div'); card.style.minWidth="360px"; card.style.flex="0 0 auto";
       const wrap=document.createElement('div'); wrap.className="table-wrapper";
       const t=document.createElement('div'); t.className="table-title"; t.textContent=title;
       const table=document.createElement('table'); table.id=id; table.className="summary-table"; table.innerHTML=innerTableHtml;
       wrap.appendChild(t); wrap.appendChild(table);
-      if (includeABS) {
-        const absTitle = document.createElement('div');
-        absTitle.className = "table-title";
-        absTitle.style.marginTop = "12px";
-        absTitle.textContent = "ABS Students";
-        const absTable = document.createElement('table');
-        absTable.id = `${id}_abs`;
-        absTable.className = "summary-table";
-        absTable.innerHTML = `
-          <thead><tr><th>Label</th><th>Count</th></tr></thead>
-          <tbody><tr><td>ABS</td><td class="abs-count">-</td></tr></tbody>
-        `;
-        wrap.appendChild(absTitle);
-        wrap.appendChild(absTable);
+      if(includeABS){
+        const absTitle=document.createElement('div'); absTitle.className="table-title"; absTitle.style.marginTop="12px"; absTitle.textContent="ABS Students";
+        const absTable=document.createElement('table'); absTable.id=`${id}_abs`; absTable.className="summary-table";
+        absTable.innerHTML=`<thead><tr><th>Label</th><th>Count</th></tr></thead><tbody><tr><td>ABS</td><td class="abs-count">-</td></tr></tbody>`;
+        wrap.appendChild(absTitle); wrap.appendChild(absTable);
       }
-      card.appendChild(wrap);
-      return card;
+      card.appendChild(wrap); return card;
     }
-
     function updateAllSummaries(){
-      const emptyGrades = ()=>({"A+":0,"A":0,"B":0,"C":0,"D":0,"E1":0,"E2":0});
+      const emptyGrades=()=>({"A+":0,"A":0,"B":0,"C":0,"D":0,"E1":0,"E2":0});
       const gradeCounts={}, genderCounts={}, casteCounts={}, absCounts={};
-
       SUBJECTS_PLUS_G.forEach(code=>{
         gradeCounts[code]=emptyGrades();
         genderCounts[code]={M:emptyGrades(),F:emptyGrades()};
@@ -951,131 +741,89 @@
       });
 
       document.querySelectorAll("#studentsTable tbody tr").forEach(row=>{
-        const gender = (row.querySelector(".gender").value || "").toUpperCase();
-        const caste  = (row.querySelector(".caste").value || "").toUpperCase();
+        const gender=(row.querySelector(".gender").value||"").toUpperCase();
+        const caste=(row.querySelector(".caste").value||"").toUpperCase();
 
         SUBJECTS.forEach(s=>{
-          const mEl = row.querySelector(`.marks-${s}`);
-          const pEl = row.querySelector(`.project-${s}`);
-          const isSubABS = isABS(mEl) || isABS(pEl);
-          if (isSubABS) {
-            absCounts[s] += 1;
-            return;
-          }
-          const g = row.querySelector(`.grade-${s}`).textContent;
-          if(g && gradeCounts[s][g]!==undefined) gradeCounts[s][g]++;
-          if(g && (gender==="M"||gender==="F") && genderCounts[s][gender] && genderCounts[s][gender][g]!==undefined) genderCounts[s][gender][g]++;
-          if(g && ["SC","ST","OBC","GENERAL"].includes(caste) && casteCounts[s][caste] && casteCounts[s][caste][g]!==undefined) casteCounts[s][caste][g]++;
+          const mEl=row.querySelector(`.marks-${s}`);
+          const pEl=row.querySelector(`.project-${s}`);
+          const isSubABS=isABS(mEl)||isABS(pEl);
+          if(isSubABS){ absCounts[s]+=1; return; }
+          const g=row.querySelector(`.grade-${s}`).textContent;
+          if(g && gradeCounts[s][g]!=undefined) gradeCounts[s][g]++;
+          if(g && (gender==="M"||gender==="F")) if(genderCounts[s][gender][g]!=undefined) genderCounts[s][gender][g]++;
+          if(g && ["SC","ST","OBC","GENERAL"].includes(caste)) if(casteCounts[s][caste][g]!=undefined) casteCounts[s][caste][g]++;
         });
 
-        // For G: if any subject ABS, count ABS in G; else count by grand grade
         const anyABS = SUBJECTS.some(s => isABS(row.querySelector(`.marks-${s}`)) || isABS(row.querySelector(`.project-${s}`)));
-        if (anyABS) {
-          absCounts["G"] += 1;
-        } else {
-          const gG = row.querySelector(".grand-grade").textContent;
-          if(gG && gradeCounts["G"][gG]!==undefined) gradeCounts["G"][gG]++;
-          if(gG && (gender==="M"||gender==="F") && genderCounts["G"][gender] && genderCounts["G"][gender][gG]!==undefined) genderCounts["G"][gender][gG]++;
-          if(gG && ["SC","ST","OBC","GENERAL"].includes(caste) && casteCounts["G"][caste] && casteCounts["G"][caste][gG]!==undefined) casteCounts["G"][caste][gG]++;
+        if(anyABS){ absCounts["G"]+=1; }
+        else{
+          const gG=row.querySelector(".grand-grade").textContent;
+          if(gG && gradeCounts["G"][gG]!=undefined) gradeCounts["G"][gG]++;
+          if(gG && (gender==="M"||gender==="F")) if(genderCounts["G"][gender][gG]!=undefined) genderCounts["G"][gender][gG]++;
+          if(gG && ["SC","ST","OBC","GENERAL"].includes(caste)) if(casteCounts["G"][caste][gG]!=undefined) casteCounts["G"][caste][gG]++;
         }
       });
 
       function renderGrade(code){
         const t=document.getElementById(`grade_${code}`); const tb=t.querySelector("tbody"); tb.innerHTML="";
-        let tot=0;
-        ["A+","A","B","C","D","E1","E2"].forEach(k=>{
-          const v=gradeCounts[code][k]||0; tot+=v;
-          tb.innerHTML += `<tr><td>${k}</td><td>${v||"-"}</td></tr>`;
-        });
-        t.querySelector(".total").textContent = tot || "-";
-        // ABS count table
-        const absTab = document.getElementById(`grade_${code}_abs`);
-        if (absTab) {
-          const cell = absTab.querySelector(".abs-count");
-          if (cell) cell.textContent = absCounts[code] || "-";
-        }
+        let tot=0; ["A+","A","B","C","D","E1","E2"].forEach(k=>{const v=gradeCounts[code][k]||0; tot+=v; tb.innerHTML+=`<tr><td>${k}</td><td>${v||"-"}</td></tr>`;});
+        t.querySelector(".total").textContent=tot||"-";
+        const absTab=document.getElementById(`grade_${code}_abs`); if(absTab){ const cell=absTab.querySelector(".abs-count"); if(cell) cell.textContent=absCounts[code]||"-"; }
       }
       function renderGender(code){
         const t=document.getElementById(`gender_${code}`); const rows=t.querySelectorAll("tbody tr");
-        ["M","F"].forEach((g,idx)=>{
-          let tds=rows[idx].querySelectorAll("td"); let sum=0, j=1;
-          ["A+","A","B","C","D","E1","E2"].forEach(k=>{
-            const v=genderCounts[code][g][k]||0; tds[j].textContent=v||"-"; sum+=v; j++;
-          });
-          tds[tds.length-1].textContent = sum || "-";
-        });
+        ["M","F"].forEach((g,idx)=>{let tds=rows[idx].querySelectorAll("td"); let sum=0,j=1; ["A+","A","B","C","D","E1","E2"].forEach(k=>{const v=genderCounts[code][g][k]||0; tds[j].textContent=v||"-"; sum+=v; j++;}); tds[tds.length-1].textContent=sum||"-";});
         const tf=t.querySelector("tfoot tr").querySelectorAll("td");
-        tf.forEach((td,i)=>{
-          if(i===0){ td.textContent="Total"; return; }
-          let sum=0; ["M","F"].forEach((g,r)=>{ sum += parseInt(t.querySelector(`tbody tr:nth-child(${r+1}) td:nth-child(${i+1})`).textContent)||0; });
-          td.textContent = sum || "-";
-        });
+        tf.forEach((td,i)=>{ if(i===0){td.textContent="Total";return;} let sum=0; ["M","F"].forEach((g,r)=>{sum+=parseInt(t.querySelector(`tbody tr:nth-child(${r+1}) td:nth-child(${i+1})`).textContent)||0;}); td.textContent=sum||"-"; });
       }
       function renderCaste(code){
         const t=document.getElementById(`caste_${code}`); const rows=t.querySelectorAll("tbody tr");
-        ["SC","ST","OBC","GENERAL"].forEach((c,idx)=>{
-          let tds=rows[idx].querySelectorAll("td"); let sum=0, j=1;
-          ["A+","A","B","C","D","E1","E2"].forEach(k=>{
-            const v=casteCounts[code][c][k]||0; tds[j].textContent=v||"-"; sum+=v; j++;
-          });
-          tds[tds.length-1].textContent = sum || "-";
-        });
+        ["SC","ST","OBC","GENERAL"].forEach((c,idx)=>{let tds=rows[idx].querySelectorAll("td"); let sum=0,j=1; ["A+","A","B","C","D","E1","E2"].forEach(k=>{const v=casteCounts[code][c][k]||0; tds[j].textContent=v||"-"; sum+=v; j++;}); tds[tds.length-1].textContent=sum||"-";});
         const tf=t.querySelector("tfoot tr").querySelectorAll("td");
-        tf.forEach((td,i)=>{
-          if(i===0){ td.textContent="Total"; return; }
-          let sum=0; ["SC","ST","OBC","GENERAL"].forEach((c,ri)=>{ sum += parseInt(rows[ri].querySelectorAll("td")[i].textContent)||0; });
-          td.textContent = sum || "-";
-        });
+        tf.forEach((td,i)=>{ if(i===0){td.textContent="Total";return;} let sum=0; ["SC","ST","OBC","GENERAL"].forEach((c,ri)=>{ sum+=parseInt(rows[ri].querySelectorAll("td")[i].textContent)||0; }); td.textContent=sum||"-"; });
       }
 
       SUBJECTS_PLUS_G.forEach(code=>{ renderGrade(code); renderGender(code); renderCaste(code); });
     }
 
     /***********************
-     * INIT / RESTORE      *
+     * INIT                *
      ***********************/
     function init(){
       updateHideShowSelects();
       createSummaryTables();
 
-      const saved = loadAll();
-      const tbody = document.querySelector("#studentsTable tbody");
+      const saved=loadAll();
+      const tbody=document.querySelector("#studentsTable tbody");
       tbody.innerHTML="";
 
       if(saved && saved.limits){
         SUBJECTS.forEach(s=>{
-          if(saved.limits[s]){
-            limits[s].mm = saved.limits[s].mm;
-            limits[s].pm = saved.limits[s].pm;
-          }
+          if(saved.limits[s]){ limits[s].mm=saved.limits[s].mm; limits[s].pm=saved.limits[s].pm; }
         });
       }
 
       if(saved && saved.students && saved.students.length){
         saved.students.forEach((st,i)=>{
           const r=addRow(st.roll || (i+1));
-          r.querySelector(".name").value = st.name || "";
-          r.querySelector(".gender").value = (st.gender || "").toUpperCase();
-          r.querySelector(".caste").value = (st.caste || "").toUpperCase();
-          r.querySelector(".dob-input").value = st.dob || "";
+          r.querySelector(".name").value=st.name||"";
+          r.querySelector(".gender").value=(st.gender||"").toUpperCase();
+          r.querySelector(".caste").value=(st.caste||"").toUpperCase();
+          r.querySelector(".dob-input").value=st.dob||"";
           SUBJECTS.forEach(s=>{
-            r.querySelector(`.marks-${s}`).value = st[`obt_${s}`] || "";
-            r.querySelector(`.project-${s}`).value = st[`proj_${s}`] || "";
-            toABSIfNeeded(r.querySelector(`.marks-${s}`));
-            toABSIfNeeded(r.querySelector(`.project-${s}`));
+            r.querySelector(`.marks-${s}`).value=st[`obt_${s}`]||"";
+            r.querySelector(`.project-${s}`).value=st[`proj_${s}`]||"";
           });
         });
-      } else {
-        addRow(1);
-      }
+      } else { addRow(1); }
 
-      // Start with no subject selected ⇒ all subject inputs disabled until selection
-      subjectSelect.value = "";
+      subjectSelect.value="";
       applySubjectSelectionUI();
       attachGradeRangeEditors();
+      setGradeRangesFromPercent(getDisplayGrandDenominator());
       updateAllRows();
     }
-
     window.addEventListener("DOMContentLoaded", init);
 
     // Add / Reset
@@ -1089,141 +837,102 @@
     document.getElementById("resetStudentsBtn").addEventListener("click", ()=>{
       document.querySelector("#studentsTable tbody").innerHTML="";
       addRow(1);
-      subjectSelect.value = "";
+      subjectSelect.value="";
       applySubjectSelectionUI();
       updateAllRows();
-      localStorage.removeItem("students_v6");
+      localStorage.removeItem("students_v7");
     });
 
-    // Persist often
+    // Persist on input
     document.addEventListener("input",(e)=>{
-      if(e.target.closest("#studentsTable") || e.target.closest("#gradeRangesTable")
-         || e.target.id==="maxMarksInput" || e.target.id==="projectMarksInput"
-         || e.target.id==="subjectCodeSelect"){
-        saveAll();
-      }
+      if(e.target.closest("#studentsTable") || e.target.closest("#gradeRangesTable") || e.target.id==="maxMarksInput" || e.target.id==="projectMarksInput" || e.target.id==="subjectCodeSelect"){ saveAll(); }
     });
 
     /***********************
      * Export to Excel     *
      ***********************/
     function sanitize(val){ return String(val ?? "").replace(/[\r\n\t]/g," ").trim(); }
-
     function getVisibleIndicesStudents(){
-      // Build indices for Students table, removing hidden + 'Action'
-      const headTop = document.querySelector("#studentsTable thead tr:last-child");
-      const totalCols = headTop.cells.length;
-      const indices = [];
-      for(let i=0;i<totalCols;i++){
-        const th = headTop.cells[i];
-        if(!th) continue;
-        const label = th.textContent.trim().toLowerCase();
-        if(label === "grade" && i===totalCols-1) continue;
-        // skip hidden
-        if(th.style.display === "none") continue;
-        // skip Action column (by label or by being the last real column)
-        if(label === "grade" && headTop.cells[i].textContent.trim().toLowerCase()==="grade"){}
+      const headTop=document.querySelector("#studentsTable thead tr:first-child");
+      const headBot=document.querySelector("#studentsTable thead tr:last-child");
+      const total=headBot.cells.length;
+      const indices=[];
+      for(let i=0;i<total;i++){
+        const th=headBot.cells[i]; if(!th) continue;
+        if(th.style.display==="none") continue;
         indices.push(i);
       }
-      // Explicitly exclude the last "Action" column by finding it from the first header row
-      const firstRow = document.querySelector("#studentsTable thead tr:first-child");
-      const actionIdx = Array.from(firstRow.cells).findIndex(th => th.textContent.trim().toLowerCase() === "action");
-      return indices.filter(i => i !== actionIdx);
+      const actIdx=Array.from(headTop.cells).findIndex(th=>th.textContent.trim().toLowerCase()==="action");
+      return indices.filter(i=>i!==actIdx);
     }
-
     document.getElementById("exportExcelBtn").addEventListener("click", ()=>{
       updateAllRows();
+      const wb=XLSX.utils.book_new();
 
-      const wb = XLSX.utils.book_new();
-
-      // ===== Students sheet (includes a title row like print) =====
-      const studentsTable = document.getElementById("studentsTable");
-      const headerTop = studentsTable.querySelector("thead tr:first-child");
-      const headerBottom = studentsTable.querySelector("thead tr:last-child");
-      const visibleIdx = getVisibleIndicesStudents();
-
-      // Build column names (bottom header cells for actual leaf columns)
-      const colNames = visibleIdx.map(i=> headerBottom.cells[i]?.textContent.trim() || "");
-
-      // Build data rows (convert inputs to values; no Action column; honor hidden)
-      const bodyRows = [];
-      for(const tr of studentsTable.querySelectorAll("tbody tr")){
-        const rowArr = [];
-        visibleIdx.forEach(i=>{
-          const td = tr.cells[i];
-          if(!td) { rowArr.push(""); return; }
-          const input=td.querySelector("input");
-          if(input){ rowArr.push(sanitize(input.value)); }
-          else { rowArr.push(sanitize(td.textContent)); }
+      // Students
+      const table=document.getElementById("studentsTable");
+      const headTop=table.querySelector("thead tr:first-child");
+      const headBot=table.querySelector("thead tr:last-child");
+      const visIdx=getVisibleIndicesStudents();
+      const colNames=visIdx.map(i=>headBot.cells[i]?.textContent.trim()||"");
+      const rows=[];
+      for(const tr of table.querySelectorAll("tbody tr")){
+        const arr=[];
+        visIdx.forEach(i=>{
+          const td=tr.cells[i]; if(!td){arr.push("");return;}
+          const inp=td.querySelector("input"); arr.push(sanitize(inp?inp.value:td.textContent));
         });
-        bodyRows.push(rowArr);
+        rows.push(arr);
       }
-
-      // Add a title row and a blank row for styling similarity with print
-      const studentsAoA = [
-        ["Students Table"], // title row
-        [],                 // spacer
-        colNames,
-        ...bodyRows
-      ];
+      const studentsAoA=[["Students Table"],[],colNames,...rows];
       XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(studentsAoA), "Students");
 
-      // ===== Summaries (grade/gender/caste) + ABS tables =====
+      // Summaries + ABS
       SUBJECTS_PLUS_G.forEach(code=>{
         ["grade","gender","caste"].forEach(kind=>{
           const tab=document.getElementById(`${kind}_${code}`);
-          const sdata=[];
-          // Insert title row like print card title
-          const cardTitle = tab.parentNode.querySelector(".table-title")?.textContent || `${kind} ${code}`;
-          sdata.push([cardTitle], []);
+          const sdata=[]; const title=tab.parentNode.querySelector(".table-title")?.textContent||`${kind} ${code}`;
+          sdata.push([title],[]);
           for(let r=0;r<tab.rows.length;r++){
             const arr=[]; for(let c=0;c<tab.rows[r].cells.length;c++){ arr.push(sanitize(tab.rows[r].cells[c].textContent)); }
             sdata.push(arr);
           }
           XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(sdata), `${kind.toUpperCase()}_${code}`);
-          if (kind === "grade") {
-            const absTab = document.getElementById(`grade_${code}_abs`);
-            if (absTab) {
-              const absData=[];
-              const absTitle = absTab.parentNode.querySelector(".table-title:last-of-type")?.textContent || "ABS Students";
-              absData.push([absTitle], []);
+          if(kind==="grade"){
+            const absTab=document.getElementById(`grade_${code}_abs`); if(absTab){
+              const ad=[]; const t=absTab.parentNode.querySelector(".table-title:last-of-type")?.textContent||"ABS Students";
+              ad.push([t],[]);
               for(let r=0;r<absTab.rows.length;r++){
                 const arr=[]; for(let c=0;c<absTab.rows[r].cells.length;c++){ arr.push(sanitize(absTab.rows[r].cells[c].textContent)); }
-                absData.push(arr);
+                ad.push(arr);
               }
-              XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(absData), `ABS_${code}`);
+              XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(ad), `ABS_${code}`);
             }
           }
         });
       });
 
-      XLSX.writeFile(wb, "Student_Grades.xlsx");
+      XLSX.writeFile(wb,"Student_Grades.xlsx");
     });
 
     /***********************
-     * Print (honors hide & no Action column)
+     * Print (no Action)   *
      ***********************/
     document.getElementById("printBtn").addEventListener("click", ()=>{
       updateAllRows();
-      const choice = document.getElementById("printSelect").value;
-      let html = "";
+      const choice=document.getElementById("printSelect").value;
+      let html="";
 
       function cloneAndCleanTable(table){
-        const clone = table.cloneNode(true);
-        // honor hidden columns + remove Action column
-        const firstHead = clone.querySelector('thead tr:first-child');
-        const actionIdx = Array.from(firstHead.cells).findIndex(th => th.textContent.trim().toLowerCase()==='action');
-        const toRemoveIdx = new Set(hiddenColumns);
-        if(actionIdx>=0) toRemoveIdx.add(actionIdx);
-        const idxList = Array.from(toRemoveIdx).sort((a,b)=>b-a);
-        clone.querySelectorAll('tr').forEach(tr=>{
-          idxList.forEach(i=>{ if(tr.cells[i]) tr.cells[i].remove(); });
-        });
-        // inputs -> text
+        const clone=table.cloneNode(true);
+        const firstHead=clone.querySelector('thead tr:first-child');
+        const actionIdx=Array.from(firstHead.cells).findIndex(th=>th.textContent.trim().toLowerCase()==='action');
+        const toRemove=new Set(hiddenColumns); if(actionIdx>=0) toRemove.add(actionIdx);
+        const idxList=Array.from(toRemove).sort((a,b)=>b-a);
+        clone.querySelectorAll('tr').forEach(tr=>{ idxList.forEach(i=>{ if(tr.cells[i]) tr.cells[i].remove(); }); });
         clone.querySelectorAll('tbody tr').forEach(tr=>{
           Array.from(tr.cells).forEach(td=>{
-            const input = td.querySelector('input');
-            if(input){ td.textContent = input.value.trim(); }
+            const inp=td.querySelector('input'); if(inp){ td.textContent=inp.value.trim(); }
           });
         });
         clone.querySelectorAll('button').forEach(b=>b.remove());
@@ -1232,25 +941,21 @@
       function wrap(title,node){ return `<div class="table-title">${title}</div>${node.outerHTML}`; }
 
       if(choice==="students"){
-        const t=document.getElementById("studentsTable");
-        html += wrap("Students Table", cloneAndCleanTable(t));
+        html += wrap("Students Table", cloneAndCleanTable(document.getElementById("studentsTable")));
       } else if(choice==="summaries" || choice==="all"){
         SUBJECTS_PLUS_G.forEach(code=>{
           ["grade","gender","caste"].forEach(kind=>{
-            const tab = document.getElementById(`${kind}_${code}`);
-            const title = tab.parentNode.querySelector(".table-title")?.textContent || `${kind} ${code}`;
+            const tab=document.getElementById(`${kind}_${code}`);
+            const title=tab.parentNode.querySelector(".table-title")?.textContent||`${kind} ${code}`;
             html += wrap(title, tab.cloneNode(true));
-            if (kind === "grade") {
-              const absTab = document.getElementById(`grade_${code}_abs`);
-              if (absTab) {
-                html += wrap("ABS Students", absTab.cloneNode(true));
-              }
+            if(kind==="grade"){
+              const absTab=document.getElementById(`grade_${code}_abs`);
+              if(absTab) html += wrap("ABS Students", absTab.cloneNode(true));
             }
           });
         });
         if(choice==="all"){
-          const t=document.getElementById("studentsTable");
-          html = wrap("Students Table", cloneAndCleanTable(t)) + html;
+          html = wrap("Students Table", cloneAndCleanTable(document.getElementById("studentsTable"))) + html;
         }
       }
 
@@ -1262,13 +967,14 @@
         w.document.write(html);
         w.document.write('</div></body></html>');
         w.document.close();
-        w.onload = ()=>{ w.focus(); w.print(); };
+        w.onload=()=>{w.focus(); w.print();};
       }
     });
 
-    // Initial absolute ranges and duplicate fix on first load as well
+    // Init grade absolute once
     window.addEventListener("load", ()=>{
-      updateAbsoluteRangesFor("G");
+      const denom=getDisplayGrandDenominator();
+      setGradeRangesFromPercent(denom);
       attachGradeRangeEditors();
     });
   </script>
